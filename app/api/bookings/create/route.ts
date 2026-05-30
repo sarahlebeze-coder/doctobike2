@@ -1,11 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server'
 import Stripe from 'stripe'
 import { google } from 'googleapis'
-import { Resend } from 'resend'
 import { supabaseAdmin } from '@/lib/supabase'
+import nodemailer from 'nodemailer'
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!)
-const resend = new Resend(process.env.RESEND_API_KEY!)
 
 type SlotRow = {
   id: string
@@ -31,6 +30,16 @@ function getGoogleAuth() {
   )
   oauth2.setCredentials({ refresh_token: process.env.GOOGLE_REFRESH_TOKEN })
   return oauth2
+}
+
+function getMailTransporter() {
+  return nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: process.env.GMAIL_USER,
+      pass: process.env.GMAIL_APP_PASSWORD,
+    },
+  })
 }
 
 export async function POST(req: NextRequest) {
@@ -61,7 +70,7 @@ export async function POST(req: NextRequest) {
     const settingsResult = await db.from('settings').select('key, value')
     const settings = (settingsResult.data ?? []) as SettingRow[]
     const priceCents = parseInt(settings.find(s => s.key === 'price_cents')?.value ?? '4500')
-    const repairerName = settings.find(s => s.key === 'repairer_name')?.value ?? 'Antoine'
+    const repairerName = settings.find(s => s.key === 'repairer_name')?.value ?? 'Damien'
 
     const paymentIntent = await stripe.paymentIntents.create({
       amount: priceCents,
@@ -136,15 +145,17 @@ export async function POST(req: NextRequest) {
       timeZone: 'Europe/Paris',
     })
 
-    await resend.emails.send({
-      from: process.env.RESEND_FROM_EMAIL!,
+    const transporter = getMailTransporter()
+
+    await transporter.sendMail({
+      from: `Doctobike <${process.env.GMAIL_USER}>`,
       to: client_email,
       subject: '✅ Votre rendez-vous Doctobike est confirmé',
       html: emailClientHTML({ client_name, dateFormatted, meetLink, repairerName, problem_description }),
     })
 
-    await resend.emails.send({
-      from: process.env.RESEND_FROM_EMAIL!,
+    await transporter.sendMail({
+      from: `Doctobike <${process.env.GMAIL_USER}>`,
       to: process.env.REPAIRER_EMAIL!,
       subject: `📅 Nouveau RDV — ${client_name} — ${dateFormatted}`,
       html: emailRepairerHTML({ client_name, client_email, dateFormatted, meetLink, problem_description }),
