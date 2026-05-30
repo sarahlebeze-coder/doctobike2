@@ -106,7 +106,7 @@ export default function BookingPage() {
             Réparez votre vélo<br />depuis chez vous
           </h1>
           <p style={{ color: '#B5D4F4', fontSize: 15, maxWidth: 400, margin: '0 auto' }}>
-            Réservez un créneau visio avec Antoine, réparateur certifié. Diagnostic et réparation guidée en direct.
+            Réservez un créneau visio avec Damien, réparateur certifié. Diagnostic et réparation guidée en direct.
           </p>
         </div>
       )}
