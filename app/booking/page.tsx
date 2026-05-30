@@ -138,3 +138,92 @@ export default function BookingPage() {
                 </div>
               </div>
             ))}
+          </div>
+        )}
+
+        {step === 2 && selectedSlot && (
+          <div style={{ background: 'white', borderRadius: 12, border: '1px solid #E6F1FB', padding: 24 }}>
+            <div style={{ background: '#E6F1FB', borderRadius: 8, padding: 12, marginBottom: 20, textAlign: 'center' }}>
+              <p style={{ color: '#185FA5', fontWeight: 500, margin: 0, textTransform: 'capitalize' }}>
+                📅 {formatDate(selectedSlot.date)} à {formatTime(selectedSlot.start_time)}
+              </p>
+            </div>
+            <h2 style={{ color: '#042C53', fontWeight: 500, fontSize: 18, marginBottom: 20 }}>Vos coordonnées</h2>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
+                <div>
+                  <label style={{ fontSize: 13, color: '#666', display: 'block', marginBottom: 4 }}>Prénom</label>
+                  <input placeholder="Marie" value={form.firstName} onChange={e => setForm({ ...form, firstName: e.target.value })}
+                    style={{ padding: '10px 12px', borderRadius: 8, border: '1px solid #ddd', fontSize: 14, width: '100%' }} />
+                </div>
+                <div>
+                  <label style={{ fontSize: 13, color: '#666', display: 'block', marginBottom: 4 }}>Nom</label>
+                  <input placeholder="Laurent" value={form.lastName} onChange={e => setForm({ ...form, lastName: e.target.value })}
+                    style={{ padding: '10px 12px', borderRadius: 8, border: '1px solid #ddd', fontSize: 14, width: '100%' }} />
+                </div>
+              </div>
+              <div>
+                <label style={{ fontSize: 13, color: '#666', display: 'block', marginBottom: 4 }}>Email</label>
+                <input placeholder="marie@exemple.fr" type="email" value={form.email} onChange={e => setForm({ ...form, email: e.target.value })}
+                  style={{ padding: '10px 12px', borderRadius: 8, border: '1px solid #ddd', fontSize: 14, width: '100%' }} />
+              </div>
+              <div>
+                <label style={{ fontSize: 13, color: '#666', display: 'block', marginBottom: 4 }}>Décrivez votre panne</label>
+                <textarea placeholder="Ex: Mon dérailleur arrière saute des vitesses, surtout en montée. Vélo de route, 21 vitesses..." value={form.description} onChange={e => setForm({ ...form, description: e.target.value })}
+                  rows={4} style={{ padding: '10px 12px', borderRadius: 8, border: '1px solid #ddd', fontSize: 14, width: '100%', resize: 'vertical', fontFamily: 'sans-serif' }} />
+              </div>
+            </div>
+            <div style={{ display: 'flex', gap: 8, marginTop: 20 }}>
+              <button onClick={() => setStep(1)} style={{ padding: '10px 20px', borderRadius: 8, border: '1px solid #ddd', background: 'white', cursor: 'pointer', color: '#666' }}>← Retour</button>
+              <button onClick={() => setStep(3)} disabled={!form.firstName || !form.lastName || !form.email}
+                style={{ padding: '10px 20px', borderRadius: 8, border: 'none', background: '#185FA5', color: 'white', cursor: 'pointer', flex: 1, fontSize: 14, fontWeight: 500 }}>
+                Continuer →
+              </button>
+            </div>
+          </div>
+        )}
+
+        {step === 3 && selectedSlot && (
+          <div style={{ background: 'white', borderRadius: 12, border: '1px solid #E6F1FB', padding: 24 }}>
+            <h2 style={{ color: '#042C53', fontWeight: 500, fontSize: 18, marginBottom: 20 }}>Récapitulatif</h2>
+            <div style={{ background: '#F8FAFF', borderRadius: 8, padding: 16, marginBottom: 16 }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', padding: '8px 0', borderBottom: '1px solid #E6F1FB' }}>
+                <span style={{ color: '#666', fontSize: 14 }}>Date</span>
+                <span style={{ fontSize: 14, fontWeight: 500, textTransform: 'capitalize' }}>{formatDate(selectedSlot.date)}</span>
+              </div>
+              <div style={{ display: 'flex', justifyContent: 'space-between', padding: '8px 0', borderBottom: '1px solid #E6F1FB' }}>
+                <span style={{ color: '#666', fontSize: 14 }}>Heure</span>
+                <span style={{ fontSize: 14, fontWeight: 500 }}>{formatTime(selectedSlot.start_time)}</span>
+              </div>
+              <div style={{ display: 'flex', justifyContent: 'space-between', padding: '8px 0', borderBottom: '1px solid #E6F1FB' }}>
+                <span style={{ color: '#666', fontSize: 14 }}>Client</span>
+                <span style={{ fontSize: 14, fontWeight: 500 }}>{form.firstName} {form.lastName}</span>
+              </div>
+              {form.description && (
+                <div style={{ padding: '8px 0', borderBottom: '1px solid #E6F1FB' }}>
+                  <p style={{ color: '#666', fontSize: 14, margin: '0 0 4px' }}>Panne décrite</p>
+                  <p style={{ fontSize: 13, color: '#042C53', margin: 0 }}>{form.description}</p>
+                </div>
+              )}
+              <div style={{ display: 'flex', justifyContent: 'space-between', padding: '12px 0 0' }}>
+                <span style={{ color: '#666', fontSize: 14 }}>Total</span>
+                <span style={{ fontSize: 20, fontWeight: 600, color: '#185FA5', fontFamily: 'Georgia, serif' }}>45 €</span>
+              </div>
+            </div>
+            <div style={{ background: '#FFF8E6', borderRadius: 8, padding: 12, marginBottom: 16, fontSize: 13, color: '#856404', border: '1px solid #FAC775' }}>
+              🔒 Votre carte est autorisée maintenant mais débitée uniquement après la réparation.
+            </div>
+            <div style={{ display: 'flex', gap: 8 }}>
+              <button onClick={() => setStep(2)} style={{ padding: '10px 20px', borderRadius: 8, border: '1px solid #ddd', background: 'white', cursor: 'pointer', color: '#666' }}>← Retour</button>
+              <button onClick={handleBook} disabled={loading}
+                style={{ padding: '10px 20px', borderRadius: 8, border: 'none', background: '#185FA5', color: 'white', cursor: 'pointer', flex: 1, fontSize: 14, fontWeight: 500 }}>
+                {loading ? 'Confirmation...' : '✓ Confirmer et réserver'}
+              </button>
+            </div>
+          </div>
+        )}
+
+      </main>
+    </div>
+  )
+}
