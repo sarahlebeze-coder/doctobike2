@@ -7,7 +7,7 @@ import { Elements, CardElement, useStripe, useElements } from '@stripe/react-str
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!)
 
 type Slot = { id: string; date: string; start_time: string; duration: number }
-type Confirmed = { booking_id: string; meet_link: string | null }
+type Confirmed = { booking_id: string; meet_link: string | null; date: string; start_time: string }
 
 const font = "'Nunito', sans-serif"
 
@@ -32,6 +32,14 @@ const Logo = () => (
     <span style={{ fontFamily: font, fontSize: 22, fontWeight: 800, color: '#042C53' }}>Doctobike</span>
   </div>
 )
+
+function buildGoogleCalendarUrl(date: string, startTime: string, meetLink: string | null, clientName: string) {
+  const start = new Date(`${date}T${startTime}`).toISOString().replace(/-|:|\.\d\d\d/g, '')
+  const end = new Date(new Date(`${date}T${startTime}`).getTime() + 45 * 60000).toISOString().replace(/-|:|\.\d\d\d/g, '')
+  const title = encodeURIComponent('🔧 Réparation vélo — Doctobike')
+  const details = encodeURIComponent(`Réparation visio avec Damien${meetLink ? `\n\nLien Meet : ${meetLink}` : ''}`)
+  return `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${start}/${end}&details=${details}`
+}
 
 function BookingForm() {
   const stripe = useStripe()
@@ -62,7 +70,6 @@ function BookingForm() {
     setError('')
 
     try {
-      // 1. Créer la réservation et obtenir le client_secret
       const res = await fetch('/api/bookings/create', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -81,7 +88,6 @@ function BookingForm() {
         return
       }
 
-      // 2. Confirmer le PaymentIntent avec la carte
       const cardElement = elements.getElement(CardElement)
       if (!cardElement) return
 
@@ -101,7 +107,7 @@ function BookingForm() {
         return
       }
 
-      setConfirmed(data)
+      setConfirmed({ ...data, date: selectedSlot.date, start_time: selectedSlot.start_time })
       setStep(4)
     } catch {
       setError('Une erreur est survenue.')
@@ -114,17 +120,36 @@ function BookingForm() {
 
   if (step === 4 && confirmed) return (
     <div style={{ minHeight: '100vh', background: '#F8FAFF', fontFamily: font }}>
+      <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
       <div style={{ background: 'white', borderBottom: '1px solid #E6F1FB', padding: '12px 20px' }}><Logo /></div>
-      <main style={{ maxWidth: 500, margin: '60px auto', padding: '0 20px', textAlign: 'center' }}>
+      <main style={{ maxWidth: 500, margin: '40px auto', padding: '0 20px', textAlign: 'center' }}>
         <div style={{ width: 64, height: 64, borderRadius: '50%', background: '#E6F1FB', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 20px', fontSize: 32, border: '2px solid #B5D4F4' }}>✓</div>
         <h1 style={{ color: '#042C53', fontWeight: 700, fontFamily: font, marginBottom: 8 }}>Réservation confirmée !</h1>
-        <p style={{ color: '#666', marginBottom: 24 }}>Un email avec le lien Google Meet a été envoyé à <strong>{form.email}</strong></p>
-        {confirmed.meet_link && (
-          <a href={confirmed.meet_link} target="_blank" rel="noreferrer"
-            style={{ display: 'block', background: '#185FA5', color: 'white', padding: '14px 20px', borderRadius: 12, textDecoration: 'none', marginBottom: 16, fontSize: 15, fontWeight: 600 }}>
-            🎥 Rejoindre la visio
+        <p style={{ color: '#666', marginBottom: 24 }}>Un email de confirmation a été envoyé à <strong>{form.email}</strong></p>
+
+        <div style={{ background: '#E6F1FB', borderRadius: 12, padding: 16, marginBottom: 16, textAlign: 'left' }}>
+          <p style={{ color: '#185FA5', fontWeight: 700, margin: '0 0 4px', textTransform: 'capitalize' }}>📅 {formatDate(confirmed.date)}</p>
+          <p style={{ color: '#185FA5', fontWeight: 600, margin: 0 }}>🕐 {formatTime(confirmed.start_time)}</p>
+        </div>
+
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 10, marginBottom: 20 }}>
+          {confirmed.meet_link && (
+            <a href={confirmed.meet_link} target="_blank" rel="noreferrer"
+              style={{ display: 'block', background: '#185FA5', color: 'white', padding: '14px 20px', borderRadius: 12, textDecoration: 'none', fontSize: 15, fontWeight: 700 }}>
+              🎥 Rejoindre la visio
+            </a>
+          )}
+          <a href={buildGoogleCalendarUrl(confirmed.date, confirmed.start_time, confirmed.meet_link, `${form.firstName} ${form.lastName}`)}
+            target="_blank" rel="noreferrer"
+            style={{ display: 'block', background: 'white', color: '#185FA5', padding: '14px 20px', borderRadius: 12, textDecoration: 'none', fontSize: 15, fontWeight: 700, border: '2px solid #B5D4F4' }}>
+            📆 Ajouter à Google Calendar
           </a>
-        )}
+          <a href={`/api/cancel?booking_id=${confirmed.booking_id}`}
+            style={{ display: 'block', background: 'none', color: '#999', padding: '10px 20px', borderRadius: 12, textDecoration: 'none', fontSize: 13 }}>
+            Annuler ce rendez-vous
+          </a>
+        </div>
+
         <button onClick={() => { setStep(1); setSelectedSlot(null); setConfirmed(null) }}
           style={{ background: 'none', border: '1px solid #ccc', padding: '10px 20px', borderRadius: 12, cursor: 'pointer', color: '#666', fontFamily: font }}>
           Nouvelle réservation
