@@ -1,5 +1,4 @@
 import Link from 'next/link'
-import Image from 'next/image'
 
 const font = "'Nunito', sans-serif"
 
@@ -84,13 +83,11 @@ export default function HomePage() {
                 Prendre rendez-vous →
               </Link>
             </div>
-            <div style={{ flexShrink: 0, borderRadius: 20, overflow: 'hidden', width: 300, height: 380, position: 'relative', boxShadow: '0 20px 60px rgba(0,0,0,0.3)' }}>
-              <Image
+            <div style={{ flexShrink: 0, borderRadius: 20, overflow: 'hidden', width: 300, height: 380, boxShadow: '0 20px 60px rgba(0,0,0,0.3)' }}>
+              <img
                 src="/damien.jpg"
                 alt="Damien, réparateur vélo Doctobike"
-                fill
-                style={{ objectFit: 'cover', objectPosition: 'center top' }}
-                priority
+                style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center top' }}
               />
             </div>
           </div>
