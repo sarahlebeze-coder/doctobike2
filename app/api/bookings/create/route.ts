@@ -24,6 +24,14 @@ type BookingInsert = {
   id: string
 }
 
+const PACK_CONFIG = {
+  decouverte: { name: 'Pack Découverte', duration: 40,  priceCents: 3000 },
+  depannage:  { name: 'Pack Dépannage',  duration: 60,  priceCents: 4500 },
+  expert:     { name: 'Pack Expert',     duration: 120, priceCents: 9000 },
+} as const
+
+type PackKey = keyof typeof PACK_CONFIG
+
 function getGoogleAuth() {
   const oauth2 = new google.auth.OAuth2(
     process.env.GOOGLE_CLIENT_ID,
@@ -50,8 +58,16 @@ export async function POST(req: NextRequest) {
       client_name: string
       client_email: string
       problem_description?: string
+      pack?: string
+      pack_name?: string
+      pack_duration?: number
+      pack_price_cents?: number
     }
-    const { availability_id, client_name, client_email, problem_description } = body
+    const { availability_id, client_name, client_email, problem_description, pack } = body
+
+    // Détermine le pack
+    const packKey = (pack && pack in PACK_CONFIG) ? pack as PackKey : 'depannage'
+    const packConfig = PACK_CONFIG[packKey]
 
     const db = supabaseAdmin()
 
@@ -70,29 +86,32 @@ export async function POST(req: NextRequest) {
 
     const settingsResult = await db.from('settings').select('key, value')
     const settings = (settingsResult.data ?? []) as SettingRow[]
-    const priceCents = parseInt(settings.find(s => s.key === 'price_cents')?.value ?? '4500')
     const repairerName = settings.find(s => s.key === 'repairer_name')?.value ?? 'Damien'
+
+    // Utilise le prix du pack
+    const priceCents = packConfig.priceCents
 
     const paymentIntent = await stripe.paymentIntents.create({
       amount: priceCents,
       currency: 'eur',
       capture_method: 'manual',
       payment_method_types: ['card'],
-      metadata: { availability_id, client_email, client_name },
-      description: `Doctobike — ${client_name} — ${slot.date} ${slot.start_time}`,
+      metadata: { availability_id, client_email, client_name, pack: packKey },
+      description: `Doctobike — ${packConfig.name} — ${client_name} — ${slot.date} ${slot.start_time}`,
     })
 
     const auth = getGoogleAuth()
     const calendar = google.calendar({ version: 'v3', auth })
     const startDateTime = new Date(`${slot.date}T${slot.start_time}`)
-    const endDateTime = new Date(startDateTime.getTime() + slot.duration * 60000)
+    // Utilise la durée du pack pour Google Calendar
+    const endDateTime = new Date(startDateTime.getTime() + packConfig.duration * 60000)
 
     const event = await calendar.events.insert({
       calendarId: process.env.GOOGLE_CALENDAR_ID ?? 'primary',
       conferenceDataVersion: 1,
       requestBody: {
-        summary: `🔧 Doctobike — ${client_name}`,
-        description: `Réparation visio\nProblème : ${problem_description ?? 'Non précisé'}\nClient : ${client_email}`,
+        summary: `🔧 Doctobike — ${packConfig.name} — ${client_name}`,
+        description: `Pack : ${packConfig.name}\nDurée : ${packConfig.duration} min\nProblème : ${problem_description ?? 'Non précisé'}\nClient : ${client_email}`,
         start: { dateTime: startDateTime.toISOString(), timeZone: 'Europe/Paris' },
         end: { dateTime: endDateTime.toISOString(), timeZone: 'Europe/Paris' },
         attendees: [
@@ -118,7 +137,6 @@ export async function POST(req: NextRequest) {
     const meetLink = event.data.conferenceData?.entryPoints?.[0]?.uri ?? null
     const googleEventId = event.data.id ?? null
 
-    // Génération du token d'annulation
     const cancelToken = crypto.randomBytes(32).toString('hex')
 
     const bookingResult = await db.from('bookings').insert({
@@ -150,7 +168,6 @@ export async function POST(req: NextRequest) {
       timeZone: 'Europe/Paris',
     })
 
-    // Vérifie si le RDV est dans moins de 24h
     const now = new Date()
     const rdvDate = new Date(`${slot.date}T${slot.start_time}`)
     const heuresAvantRdv = (rdvDate.getTime() - now.getTime()) / (1000 * 60 * 60)
@@ -164,15 +181,15 @@ export async function POST(req: NextRequest) {
     await transporter.sendMail({
       from: `Doctobike <${process.env.GMAIL_USER}>`,
       to: client_email,
-      subject: '✅ Votre rendez-vous Doctobike est confirmé',
-      html: emailClientHTML({ client_name, dateFormatted, meetLink, repairerName, problem_description, cancelUrl, cancellable }),
+      subject: `✅ Votre ${packConfig.name} Doctobike est confirmé`,
+      html: emailClientHTML({ client_name, dateFormatted, meetLink, repairerName, problem_description, cancelUrl, cancellable, packName: packConfig.name, packDuration: packConfig.duration }),
     })
 
     await transporter.sendMail({
       from: `Doctobike <${process.env.GMAIL_USER}>`,
       to: process.env.REPAIRER_EMAIL!,
-      subject: `📅 Nouveau RDV — ${client_name} — ${dateFormatted}`,
-      html: emailRepairerHTML({ client_name, client_email, dateFormatted, meetLink, problem_description }),
+      subject: `📅 Nouveau RDV — ${packConfig.name} — ${client_name} — ${dateFormatted}`,
+      html: emailRepairerHTML({ client_name, client_email, dateFormatted, meetLink, problem_description, packName: packConfig.name, packDuration: packConfig.duration, priceCents }),
     })
 
     return NextResponse.json({
@@ -198,6 +215,8 @@ function emailClientHTML(p: {
   problem_description?: string
   cancelUrl: string
   cancellable: boolean
+  packName: string
+  packDuration: number
 }) {
   return `<div style="font-family:sans-serif;max-width:520px;margin:auto;padding:32px;">
     <div style="text-align:center;margin-bottom:24px;">
@@ -205,9 +224,10 @@ function emailClientHTML(p: {
     </div>
     <h2 style="color:#042C53;">Votre rendez-vous est confirmé !</h2>
     <p>Bonjour <strong>${p.client_name}</strong>,</p>
-    <p>Votre séance avec ${p.repairerName} est réservée pour :</p>
+    <p>Votre <strong>${p.packName}</strong> avec ${p.repairerName} est réservé pour :</p>
     <div style="background:#E6F1FB;border-radius:8px;padding:16px;margin:16px 0;">
       <p style="margin:0;font-size:18px;font-weight:600;color:#042C53;">📅 ${p.dateFormatted}</p>
+      <p style="margin:4px 0 0;font-size:14px;color:#185FA5;">⏱ Durée : ${p.packDuration} min</p>
       ${p.meetLink ? `<p style="margin:8px 0 0;"><a href="${p.meetLink}" style="color:#185FA5;">🎥 Rejoindre la visio</a></p>` : ''}
     </div>
     ${p.problem_description ? `<p><strong>Problème :</strong> ${p.problem_description}</p>` : ''}
@@ -229,13 +249,19 @@ function emailRepairerHTML(p: {
   dateFormatted: string
   meetLink: string | null
   problem_description?: string
+  packName: string
+  packDuration: number
+  priceCents: number
 }) {
   return `<div style="font-family:sans-serif;max-width:520px;margin:auto;padding:32px;">
     <h2 style="color:#042C53;">Nouveau rendez-vous 🔧</h2>
     <table style="width:100%;border-collapse:collapse;">
+      <tr><td style="padding:8px 0;color:#666;">Pack</td><td><strong>${p.packName}</strong></td></tr>
       <tr><td style="padding:8px 0;color:#666;">Client</td><td><strong>${p.client_name}</strong></td></tr>
       <tr><td style="padding:8px 0;color:#666;">Email</td><td>${p.client_email}</td></tr>
       <tr><td style="padding:8px 0;color:#666;">Date</td><td><strong>${p.dateFormatted}</strong></td></tr>
+      <tr><td style="padding:8px 0;color:#666;">Durée</td><td>${p.packDuration} min</td></tr>
+      <tr><td style="padding:8px 0;color:#666;">Montant</td><td><strong>${p.priceCents / 100}€</strong></td></tr>
       <tr><td style="padding:8px 0;color:#666;">Problème</td><td>${p.problem_description ?? 'Non précisé'}</td></tr>
       ${p.meetLink ? `<tr><td style="padding:8px 0;color:#666;">Meet</td><td><a href="${p.meetLink}">${p.meetLink}</a></td></tr>` : ''}
     </table>
