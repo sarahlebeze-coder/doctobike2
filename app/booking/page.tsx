@@ -1,6 +1,7 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useState, Suspense } from 'react'
+import { useSearchParams } from 'next/navigation'
 import { loadStripe } from '@stripe/stripe-js'
 import { Elements, CardElement, useStripe, useElements } from '@stripe/react-stripe-js'
 
@@ -11,37 +12,28 @@ type Confirmed = { booking_id: string; meet_link: string | null; date: string; s
 
 const font = "'Nunito', sans-serif"
 
-const Logo = () => (
-  <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-    <div style={{ width: 40, height: 40, borderRadius: '50%', background: '#185FA5', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-      <svg width="24" height="24" viewBox="0 0 36 36" fill="none">
-        <circle cx="10" cy="22" r="7" fill="none" stroke="#E6F1FB" strokeWidth="1.5"/>
-        <circle cx="10" cy="22" r="2" fill="#B5D4F4"/>
-        <circle cx="26" cy="22" r="7" fill="none" stroke="#E6F1FB" strokeWidth="1.5"/>
-        <circle cx="26" cy="22" r="2" fill="#B5D4F4"/>
-        <path d="M10 22 L17 10 L26 22" fill="none" stroke="#E6F1FB" strokeWidth="1.5" strokeLinejoin="round"/>
-        <path d="M17 10 L21 22" stroke="#E6F1FB" strokeWidth="1.5" strokeLinecap="round"/>
-        <line x1="14" y1="10" x2="19" y2="10" stroke="#E6F1FB" strokeWidth="2" strokeLinecap="round"/>
-        <line x1="19" y1="10" x2="19" y2="14" stroke="#E6F1FB" strokeWidth="2" strokeLinecap="round"/>
-        <g transform="translate(28,6) rotate(35)">
-          <rect x="-2" y="-7" width="4" height="10" rx="1" fill="#FAC775"/>
-          <rect x="-3.5" y="-9" width="7" height="3.5" rx="1.5" fill="#FAC775"/>
-        </g>
-      </svg>
-    </div>
-    <span style={{ fontFamily: font, fontSize: 22, fontWeight: 800, color: '#042C53' }}>Doctobike</span>
-  </div>
-)
+const PACKS = {
+  decouverte: { name: 'Pack Découverte', price: 30, priceCents: 3000, duration: 40, label: '30€ · 40 min' },
+  depannage:  { name: 'Pack Dépannage',  price: 45, priceCents: 4500, duration: 60, label: '45€ · Entre 45 min et 1h' },
+  expert:     { name: 'Pack Expert',     price: 90, priceCents: 9000, duration: 120, label: '90€ · Jusqu\'à 2h' },
+} as const
 
-function buildGoogleCalendarUrl(date: string, startTime: string, meetLink: string | null, clientName: string) {
+type PackKey = keyof typeof PACKS
+
+function buildGoogleCalendarUrl(date: string, startTime: string, meetLink: string | null, durationMinutes: number) {
   const start = new Date(`${date}T${startTime}`).toISOString().replace(/-|:|\.\d\d\d/g, '')
-  const end = new Date(new Date(`${date}T${startTime}`).getTime() + 45 * 60000).toISOString().replace(/-|:|\.\d\d\d/g, '')
+  const end = new Date(new Date(`${date}T${startTime}`).getTime() + durationMinutes * 60000).toISOString().replace(/-|:|\.\d\d\d/g, '')
   const title = encodeURIComponent('🔧 Réparation vélo — Doctobike')
   const details = encodeURIComponent(`Réparation visio avec Damien${meetLink ? `\n\nLien Meet : ${meetLink}` : ''}`)
   return `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${start}/${end}&details=${details}`
 }
 
 function BookingForm() {
+  const searchParams = useSearchParams()
+  const packParam = searchParams.get('pack') as PackKey | null
+  const selectedPack = packParam && PACKS[packParam] ? PACKS[packParam] : PACKS.depannage
+  const selectedPackKey = packParam && PACKS[packParam] ? packParam : 'depannage'
+
   const stripe = useStripe()
   const elements = useElements()
   const [slots, setSlots] = useState<Slot[]>([])
@@ -78,6 +70,10 @@ function BookingForm() {
           client_name: `${form.firstName} ${form.lastName}`,
           client_email: form.email,
           problem_description: form.description,
+          pack: selectedPackKey,
+          pack_name: selectedPack.name,
+          pack_duration: selectedPack.duration,
+          pack_price_cents: selectedPack.priceCents,
         }),
       })
       const data = await res.json()
@@ -94,10 +90,7 @@ function BookingForm() {
       const { error: stripeError } = await stripe.confirmCardPayment(data.client_secret, {
         payment_method: {
           card: cardElement,
-          billing_details: {
-            name: `${form.firstName} ${form.lastName}`,
-            email: form.email,
-          },
+          billing_details: { name: `${form.firstName} ${form.lastName}`, email: form.email },
         },
       })
 
@@ -126,16 +119,15 @@ function BookingForm() {
 
   if (step === 4 && confirmed) return (
     <div style={{ minHeight: '100vh', background: '#F8FAFF', fontFamily: font }}>
-      <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
-      <div style={{ background: 'white', borderBottom: '1px solid #E6F1FB', padding: '12px 20px' }}><Logo /></div>
       <main style={{ maxWidth: 500, margin: '40px auto', padding: '0 20px', textAlign: 'center' }}>
         <div style={{ width: 64, height: 64, borderRadius: '50%', background: '#E6F1FB', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 20px', fontSize: 32, border: '2px solid #B5D4F4' }}>✓</div>
         <h1 style={{ color: '#042C53', fontWeight: 700, fontFamily: font, marginBottom: 8 }}>Réservation confirmée !</h1>
-        <p style={{ color: '#666', marginBottom: 24 }}>Un email de confirmation a été envoyé à <strong>{form.email}</strong></p>
+        <p style={{ color: '#666', marginBottom: 16 }}>Un email de confirmation a été envoyé à <strong>{form.email}</strong></p>
 
-        <div style={{ background: '#E6F1FB', borderRadius: 12, padding: 16, marginBottom: 16, textAlign: 'left' }}>
+        <div style={{ background: '#E6F1FB', borderRadius: 12, padding: 16, marginBottom: 8, textAlign: 'left' }}>
           <p style={{ color: '#185FA5', fontWeight: 700, margin: '0 0 4px', textTransform: 'capitalize' }}>📅 {formatDate(confirmed.date)}</p>
-          <p style={{ color: '#185FA5', fontWeight: 600, margin: 0 }}>🕐 {formatTime(confirmed.start_time)}</p>
+          <p style={{ color: '#185FA5', fontWeight: 600, margin: '0 0 4px' }}>🕐 {formatTime(confirmed.start_time)}</p>
+          <p style={{ color: '#185FA5', fontWeight: 600, margin: 0 }}>📦 {selectedPack.name} — {selectedPack.label}</p>
         </div>
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: 10, marginBottom: 20 }}>
@@ -145,7 +137,7 @@ function BookingForm() {
               🎥 Rejoindre la visio
             </a>
           )}
-          <a href={buildGoogleCalendarUrl(confirmed.date, confirmed.start_time, confirmed.meet_link, `${form.firstName} ${form.lastName}`)}
+          <a href={buildGoogleCalendarUrl(confirmed.date, confirmed.start_time, confirmed.meet_link, selectedPack.duration)}
             target="_blank" rel="noreferrer"
             style={{ display: 'block', background: 'white', color: '#185FA5', padding: '14px 20px', borderRadius: 12, textDecoration: 'none', fontSize: 15, fontWeight: 700, border: '2px solid #B5D4F4' }}>
             📆 Ajouter à Google Calendar
@@ -168,19 +160,14 @@ function BookingForm() {
 
   return (
     <div style={{ minHeight: '100vh', background: '#F8FAFF', fontFamily: font }}>
-      <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
-      <div style={{ background: 'white', borderBottom: '1px solid #E6F1FB', padding: '12px 20px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-        <Logo />
-        <a href="/admin" style={{ fontSize: 13, color: '#888', textDecoration: 'none' }}>Espace réparateur</a>
-      </div>
 
       {step === 1 && (
-        <div style={{ background: 'linear-gradient(135deg, #042C53 0%, #185FA5 100%)', padding: '48px 20px', textAlign: 'center', color: 'white' }}>
-          <p style={{ fontSize: 12, letterSpacing: '0.15em', textTransform: 'uppercase', color: '#B5D4F4', marginBottom: 12, fontWeight: 600 }}>Réparation online</p>
-          <h1 style={{ fontFamily: font, fontSize: 28, fontWeight: 800, marginBottom: 12, lineHeight: 1.3 }}>Réparez votre vélo<br />depuis chez vous</h1>
-          <p style={{ color: '#B5D4F4', fontSize: 15, maxWidth: 420, margin: '0 auto', lineHeight: 1.6 }}>
-            Réservez votre réparation en ligne avec Damien, réparateur certifié.
-          </p>
+        <div style={{ background: 'linear-gradient(135deg, #042C53 0%, #185FA5 100%)', padding: '32px 20px', textAlign: 'center', color: 'white' }}>
+          <p style={{ fontSize: 12, letterSpacing: '0.15em', textTransform: 'uppercase', color: '#B5D4F4', marginBottom: 8, fontWeight: 600 }}>Réparation online</p>
+          <h1 style={{ fontFamily: font, fontSize: 24, fontWeight: 800, marginBottom: 8, lineHeight: 1.3 }}>Réparez votre vélo depuis chez vous</h1>
+          <div style={{ display: 'inline-block', background: 'rgba(255,255,255,0.15)', borderRadius: 10, padding: '8px 16px', fontSize: 14, color: '#FAC775', fontWeight: 700 }}>
+            📦 {selectedPack.name} — {selectedPack.label}
+          </div>
         </div>
       )}
 
@@ -213,7 +200,8 @@ function BookingForm() {
         {step === 2 && selectedSlot && (
           <div style={{ background: 'white', borderRadius: 16, border: '1px solid #E6F1FB', padding: 24 }}>
             <div style={{ background: '#E6F1FB', borderRadius: 10, padding: 12, marginBottom: 20, textAlign: 'center' }}>
-              <p style={{ color: '#185FA5', fontWeight: 700, margin: 0, textTransform: 'capitalize' }}>📅 {formatDate(selectedSlot.date)} à {formatTime(selectedSlot.start_time)}</p>
+              <p style={{ color: '#185FA5', fontWeight: 700, margin: '0 0 4px', textTransform: 'capitalize' }}>📅 {formatDate(selectedSlot.date)} à {formatTime(selectedSlot.start_time)}</p>
+              <p style={{ color: '#185FA5', fontWeight: 600, margin: 0, fontSize: 13 }}>📦 {selectedPack.name} — {selectedPack.label}</p>
             </div>
             <h2 style={{ color: '#042C53', fontWeight: 700, fontSize: 18, marginBottom: 20 }}>Vos coordonnées</h2>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
@@ -221,23 +209,23 @@ function BookingForm() {
                 <div>
                   <label style={{ fontSize: 13, color: '#666', display: 'block', marginBottom: 4, fontWeight: 600 }}>Prénom</label>
                   <input placeholder="Marie" value={form.firstName} onChange={e => setForm({ ...form, firstName: e.target.value })}
-                    style={{ padding: '10px 12px', borderRadius: 10, border: '1.5px solid #ddd', fontSize: 14, width: '100%', fontFamily: font }} />
+                    style={{ padding: '10px 12px', borderRadius: 10, border: '1.5px solid #ddd', fontSize: 14, width: '100%', fontFamily: font, boxSizing: 'border-box' }} />
                 </div>
                 <div>
                   <label style={{ fontSize: 13, color: '#666', display: 'block', marginBottom: 4, fontWeight: 600 }}>Nom</label>
                   <input placeholder="Laurent" value={form.lastName} onChange={e => setForm({ ...form, lastName: e.target.value })}
-                    style={{ padding: '10px 12px', borderRadius: 10, border: '1.5px solid #ddd', fontSize: 14, width: '100%', fontFamily: font }} />
+                    style={{ padding: '10px 12px', borderRadius: 10, border: '1.5px solid #ddd', fontSize: 14, width: '100%', fontFamily: font, boxSizing: 'border-box' }} />
                 </div>
               </div>
               <div>
                 <label style={{ fontSize: 13, color: '#666', display: 'block', marginBottom: 4, fontWeight: 600 }}>Email</label>
                 <input placeholder="marie@exemple.fr" type="email" value={form.email} onChange={e => setForm({ ...form, email: e.target.value })}
-                  style={{ padding: '10px 12px', borderRadius: 10, border: '1.5px solid #ddd', fontSize: 14, width: '100%', fontFamily: font }} />
+                  style={{ padding: '10px 12px', borderRadius: 10, border: '1.5px solid #ddd', fontSize: 14, width: '100%', fontFamily: font, boxSizing: 'border-box' }} />
               </div>
               <div>
                 <label style={{ fontSize: 13, color: '#666', display: 'block', marginBottom: 4, fontWeight: 600 }}>Décrivez votre panne</label>
                 <textarea placeholder="Ex: Mon dérailleur arrière saute des vitesses..." value={form.description} onChange={e => setForm({ ...form, description: e.target.value })}
-                  rows={4} style={{ padding: '10px 12px', borderRadius: 10, border: '1.5px solid #ddd', fontSize: 14, width: '100%', resize: 'vertical', fontFamily: font }} />
+                  rows={4} style={{ padding: '10px 12px', borderRadius: 10, border: '1.5px solid #ddd', fontSize: 14, width: '100%', resize: 'vertical', fontFamily: font, boxSizing: 'border-box' }} />
               </div>
             </div>
             <div style={{ display: 'flex', gap: 8, marginTop: 20 }}>
@@ -262,9 +250,13 @@ function BookingForm() {
                 <span style={{ color: '#666', fontSize: 14 }}>Heure</span>
                 <span style={{ fontSize: 14, fontWeight: 700 }}>{formatTime(selectedSlot.start_time)}</span>
               </div>
+              <div style={{ display: 'flex', justifyContent: 'space-between', padding: '8px 0', borderBottom: '1px solid #E6F1FB' }}>
+                <span style={{ color: '#666', fontSize: 14 }}>Pack</span>
+                <span style={{ fontSize: 14, fontWeight: 700, color: '#185FA5' }}>{selectedPack.name}</span>
+              </div>
               <div style={{ display: 'flex', justifyContent: 'space-between', padding: '8px 0' }}>
                 <span style={{ color: '#666', fontSize: 14 }}>Total</span>
-                <span style={{ fontSize: 22, fontWeight: 800, color: '#185FA5', fontFamily: font }}>45 €</span>
+                <span style={{ fontSize: 22, fontWeight: 800, color: '#185FA5', fontFamily: font }}>{selectedPack.price}€</span>
               </div>
             </div>
 
@@ -285,7 +277,7 @@ function BookingForm() {
               <button onClick={() => setStep(2)} style={{ padding: '10px 20px', borderRadius: 10, border: '1.5px solid #ddd', background: 'white', cursor: 'pointer', color: '#666', fontFamily: font }}>← Retour</button>
               <button onClick={handleBook} disabled={loading || !stripe}
                 style={{ padding: '10px 20px', borderRadius: 10, border: 'none', background: '#185FA5', color: 'white', cursor: 'pointer', flex: 1, fontSize: 14, fontWeight: 700, fontFamily: font }}>
-                {loading ? 'Traitement...' : '🔒 Confirmer et réserver'}
+                {loading ? 'Traitement...' : `🔒 Confirmer — ${selectedPack.price}€`}
               </button>
             </div>
           </div>
@@ -295,10 +287,18 @@ function BookingForm() {
   )
 }
 
-export default function BookingPage() {
+function BookingPageInner() {
   return (
     <Elements stripe={stripePromise}>
       <BookingForm />
     </Elements>
+  )
+}
+
+export default function BookingPage() {
+  return (
+    <Suspense fallback={<div style={{ minHeight: '100vh', background: '#F8FAFF', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#185FA5', fontFamily: "'Nunito', sans-serif" }}>Chargement...</div>}>
+      <BookingPageInner />
+    </Suspense>
   )
 }
