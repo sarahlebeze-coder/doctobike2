@@ -7,7 +7,7 @@ import { Elements, CardElement, useStripe, useElements } from '@stripe/react-str
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!)
 
 type Slot = { id: string; date: string; start_time: string; duration: number }
-type Confirmed = { booking_id: string; meet_link: string | null; date: string; start_time: string }
+type Confirmed = { booking_id: string; meet_link: string | null; date: string; start_time: string; cancel_token?: string }
 
 const font = "'Nunito', sans-serif"
 
@@ -107,7 +107,13 @@ function BookingForm() {
         return
       }
 
-      setConfirmed({ ...data, date: selectedSlot.date, start_time: selectedSlot.start_time })
+      setConfirmed({
+        booking_id: data.booking_id,
+        meet_link: data.meet_link,
+        date: selectedSlot.date,
+        start_time: selectedSlot.start_time,
+        cancel_token: data.cancel_token,
+      })
       setStep(4)
     } catch {
       setError('Une erreur est survenue.')
@@ -144,10 +150,12 @@ function BookingForm() {
             style={{ display: 'block', background: 'white', color: '#185FA5', padding: '14px 20px', borderRadius: 12, textDecoration: 'none', fontSize: 15, fontWeight: 700, border: '2px solid #B5D4F4' }}>
             📆 Ajouter à Google Calendar
           </a>
-          <a href={`/api/cancel?booking_id=${confirmed.booking_id}`}
-            style={{ display: 'block', background: 'none', color: '#999', padding: '10px 20px', borderRadius: 12, textDecoration: 'none', fontSize: 13 }}>
-            Annuler ce rendez-vous
-          </a>
+          {confirmed.cancel_token && (
+            <a href={`/cancel/${confirmed.cancel_token}`}
+              style={{ display: 'block', background: 'none', color: '#999', padding: '10px 20px', borderRadius: 12, textDecoration: 'none', fontSize: 13 }}>
+              Annuler ce rendez-vous
+            </a>
+          )}
         </div>
 
         <button onClick={() => { setStep(1); setSelectedSlot(null); setConfirmed(null) }}
