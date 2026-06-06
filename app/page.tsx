@@ -25,82 +25,66 @@ const Logo = () => (
 )
 
 const HeroIllustration = () => (
-  <svg width="320" height="320" viewBox="0 0 680 340" fill="none">
-    <circle cx="340" cy="190" r="100" fill="#042C53"/>
-    <circle cx="340" cy="190" r="100" fill="none" stroke="#185FA5" strokeWidth="2"/>
-    <circle cx="340" cy="190" r="88" fill="none" stroke="#0C447C" strokeWidth="1" strokeDasharray="6 4"/>
-    <circle cx="285" cy="215" r="34" fill="none" stroke="#B5D4F4" strokeWidth="4"/>
-    <circle cx="285" cy="215" r="5" fill="#B5D4F4"/>
-    <line x1="285" y1="181" x2="285" y2="215" stroke="#B5D4F4" strokeWidth="1.2" opacity="0.4"/>
-    <line x1="251" y1="215" x2="285" y2="215" stroke="#B5D4F4" strokeWidth="1.2" opacity="0.4"/>
-    <line x1="319" y1="215" x2="285" y2="215" stroke="#B5D4F4" strokeWidth="1.2" opacity="0.4"/>
-    <line x1="261" y1="191" x2="309" y2="239" stroke="#B5D4F4" strokeWidth="1.2" opacity="0.4"/>
-    <line x1="309" y1="191" x2="261" y2="239" stroke="#B5D4F4" strokeWidth="1.2" opacity="0.4"/>
-    <circle cx="395" cy="215" r="34" fill="none" stroke="#B5D4F4" strokeWidth="4"/>
-    <circle cx="395" cy="215" r="5" fill="#B5D4F4"/>
-    <line x1="395" y1="181" x2="395" y2="215" stroke="#B5D4F4" strokeWidth="1.2" opacity="0.4"/>
-    <line x1="361" y1="215" x2="395" y2="215" stroke="#B5D4F4" strokeWidth="1.2" opacity="0.4"/>
-    <line x1="429" y1="215" x2="395" y2="215" stroke="#B5D4F4" strokeWidth="1.2" opacity="0.4"/>
-    <line x1="371" y1="191" x2="419" y2="239" stroke="#B5D4F4" strokeWidth="1.2" opacity="0.4"/>
-    <line x1="419" y1="191" x2="371" y2="239" stroke="#B5D4F4" strokeWidth="1.2" opacity="0.4"/>
-    <line x1="310" y1="215" x2="310" y2="158" stroke="#E6F1FB" strokeWidth="4" strokeLinecap="round"/>
-    <line x1="310" y1="158" x2="385" y2="163" stroke="#E6F1FB" strokeWidth="4" strokeLinecap="round"/>
-    <line x1="310" y1="215" x2="385" y2="163" stroke="#E6F1FB" strokeWidth="3.5" strokeLinecap="round"/>
-    <line x1="310" y1="215" x2="285" y2="215" stroke="#E6F1FB" strokeWidth="4" strokeLinecap="round"/>
-    <line x1="310" y1="158" x2="285" y2="215" stroke="#E6F1FB" strokeWidth="3" strokeLinecap="round"/>
-    <line x1="385" y1="163" x2="395" y2="215" stroke="#E6F1FB" strokeWidth="4" strokeLinecap="round"/>
-    <line x1="310" y1="158" x2="308" y2="148" stroke="#E6F1FB" strokeWidth="3" strokeLinecap="round"/>
-    <line x1="298" y1="146" x2="320" y2="146" stroke="#E6F1FB" strokeWidth="5" strokeLinecap="round"/>
-    <circle cx="310" cy="215" r="9" fill="none" stroke="#FAC775" strokeWidth="3"/>
-    <line x1="301" y1="222" x2="292" y2="230" stroke="#FAC775" strokeWidth="3" strokeLinecap="round"/>
-    <line x1="319" y1="208" x2="328" y2="200" stroke="#FAC775" strokeWidth="3" strokeLinecap="round"/>
-    <line x1="385" y1="163" x2="383" y2="145" stroke="#E6F1FB" strokeWidth="3.5" strokeLinecap="round"/>
-    <path d="M373 143 Q383 138 393 143" fill="none" stroke="#E6F1FB" strokeWidth="4" strokeLinecap="round"/>
-    <circle cx="373" cy="143" r="3.5" fill="#FAC775"/>
-    <circle cx="393" cy="143" r="3.5" fill="#FAC775"/>
-    <line x1="255" y1="130" x2="195" y2="82" stroke="#185FA5" strokeWidth="1" strokeDasharray="4 3"/>
-    <line x1="340" y1="90" x2="340" y2="44" stroke="#185FA5" strokeWidth="1" strokeDasharray="4 3"/>
-    <line x1="425" y1="130" x2="485" y2="82" stroke="#185FA5" strokeWidth="1" strokeDasharray="4 3"/>
-    <circle cx="165" cy="66" r="44" fill="#042C53" stroke="#185FA5" strokeWidth="1.5"/>
-    <text x="165" y="54" textAnchor="middle" fontFamily="sans-serif" fontSize="20">📅</text>
-    <text x="165" y="72" textAnchor="middle" fontFamily="sans-serif" fontSize="11" fontWeight="700" fill="#E6F1FB">Réservez</text>
-    <text x="165" y="86" textAnchor="middle" fontFamily="sans-serif" fontSize="10" fill="#B5D4F4">un créneau</text>
-    <circle cx="340" cy="22" r="44" fill="#042C53" stroke="#185FA5" strokeWidth="1.5"/>
-    <text x="340" y="10" textAnchor="middle" fontFamily="sans-serif" fontSize="20">🎥</text>
-    <text x="340" y="28" textAnchor="middle" fontFamily="sans-serif" fontSize="11" fontWeight="700" fill="#E6F1FB">Connectez</text>
-    <text x="340" y="43" textAnchor="middle" fontFamily="sans-serif" fontSize="10" fill="#B5D4F4">en visio</text>
-    <circle cx="515" cy="66" r="44" fill="#042C53" stroke="#185FA5" strokeWidth="1.5"/>
-    <text x="515" y="54" textAnchor="middle" fontFamily="sans-serif" fontSize="20">🔧</text>
-    <text x="515" y="72" textAnchor="middle" fontFamily="sans-serif" fontSize="11" fontWeight="700" fill="#E6F1FB">Réparez</text>
-    <text x="515" y="86" textAnchor="middle" fontFamily="sans-serif" fontSize="10" fill="#B5D4F4">votre vélo</text>
+  <svg width="300" height="300" viewBox="0 0 300 300" fill="none">
+    <circle cx="150" cy="150" r="145" fill="#0C447C"/>
+    <circle cx="150" cy="150" r="145" fill="none" stroke="#378ADD" strokeWidth="2"/>
+    <circle cx="150" cy="150" r="133" fill="none" stroke="#185FA5" strokeWidth="1" strokeDasharray="6 4"/>
+
+    {/* Roue arrière */}
+    <circle cx="100" cy="175" r="52" fill="none" stroke="#B5D4F4" strokeWidth="5"/>
+    <circle cx="100" cy="175" r="7" fill="#B5D4F4"/>
+    <line x1="100" y1="123" x2="100" y2="175" stroke="#B5D4F4" strokeWidth="1.5" opacity="0.5"/>
+    <line x1="48" y1="175" x2="100" y2="175" stroke="#B5D4F4" strokeWidth="1.5" opacity="0.5"/>
+    <line x1="152" y1="175" x2="100" y2="175" stroke="#B5D4F4" strokeWidth="1.5" opacity="0.5"/>
+    <line x1="63" y1="138" x2="137" y2="212" stroke="#B5D4F4" strokeWidth="1.5" opacity="0.5"/>
+    <line x1="137" y1="138" x2="63" y2="212" stroke="#B5D4F4" strokeWidth="1.5" opacity="0.5"/>
+
+    {/* Roue avant */}
+    <circle cx="200" cy="175" r="52" fill="none" stroke="#B5D4F4" strokeWidth="5"/>
+    <circle cx="200" cy="175" r="7" fill="#B5D4F4"/>
+    <line x1="200" y1="123" x2="200" y2="175" stroke="#B5D4F4" strokeWidth="1.5" opacity="0.5"/>
+    <line x1="148" y1="175" x2="200" y2="175" stroke="#B5D4F4" strokeWidth="1.5" opacity="0.5"/>
+    <line x1="252" y1="175" x2="200" y2="175" stroke="#B5D4F4" strokeWidth="1.5" opacity="0.5"/>
+    <line x1="163" y1="138" x2="237" y2="212" stroke="#B5D4F4" strokeWidth="1.5" opacity="0.5"/>
+    <line x1="237" y1="138" x2="163" y2="212" stroke="#B5D4F4" strokeWidth="1.5" opacity="0.5"/>
+
+    {/* Cadre — tube de selle vertical */}
+    <line x1="130" y1="175" x2="128" y2="108" stroke="#E6F1FB" strokeWidth="5" strokeLinecap="round"/>
+    {/* Tube supérieur */}
+    <line x1="128" y1="108" x2="192" y2="114" stroke="#E6F1FB" strokeWidth="5" strokeLinecap="round"/>
+    {/* Tube diagonal */}
+    <line x1="130" y1="175" x2="192" y2="114" stroke="#E6F1FB" strokeWidth="4" strokeLinecap="round"/>
+    {/* Base pédalier → roue arrière */}
+    <line x1="130" y1="175" x2="100" y2="175" stroke="#E6F1FB" strokeWidth="5" strokeLinecap="round"/>
+    {/* Hauban */}
+    <line x1="128" y1="108" x2="100" y2="175" stroke="#E6F1FB" strokeWidth="3.5" strokeLinecap="round"/>
+    {/* Fourche avant */}
+    <line x1="192" y1="114" x2="200" y2="175" stroke="#E6F1FB" strokeWidth="5" strokeLinecap="round"/>
+
+    {/* Selle */}
+    <line x1="128" y1="108" x2="126" y2="96" stroke="#E6F1FB" strokeWidth="4" strokeLinecap="round"/>
+    <line x1="114" y1="93" x2="138" y2="93" stroke="#E6F1FB" strokeWidth="6" strokeLinecap="round"/>
+
+    {/* Pédalier */}
+    <circle cx="130" cy="175" r="11" fill="none" stroke="#FAC775" strokeWidth="3.5"/>
+    <line x1="119" y1="183" x2="108" y2="192" stroke="#FAC775" strokeWidth="3.5" strokeLinecap="round"/>
+    <line x1="141" y1="167" x2="152" y2="158" stroke="#FAC775" strokeWidth="3.5" strokeLinecap="round"/>
+
+    {/* Guidon avant */}
+    <line x1="192" y1="114" x2="190" y2="94" stroke="#E6F1FB" strokeWidth="4" strokeLinecap="round"/>
+    <path d="M179 91 Q190 85 201 91" fill="none" stroke="#E6F1FB" strokeWidth="5" strokeLinecap="round"/>
+    <circle cx="179" cy="91" r="4" fill="#FAC775"/>
+    <circle cx="201" cy="91" r="4" fill="#FAC775"/>
   </svg>
 )
 
 const faqs = [
-  {
-    q: "Comment ça marche ?",
-    a: "Vous réservez un créneau en ligne, puis vous rejoignez Damien en visio via Google Meet. Il diagnostique votre problème et vous guide pas à pas pour réparer votre vélo vous-même."
-  },
-  {
-    q: "De quoi ai-je besoin pour la séance ?",
-    a: "D'un smartphone ou ordinateur avec caméra, d'une bonne connexion internet, et bien sûr de votre vélo à portée de main. Un minimum d'outillage de base peut être utile (clés allen, tournevis)."
-  },
-  {
-    q: "Quand est-ce que ma carte est débitée ?",
-    a: "Votre carte est uniquement débitée après la réparation. À la réservation, on effectue simplement une autorisation pour sécuriser le créneau."
-  },
-  {
-    q: "Que se passe-t-il si mon problème n'est pas réparable en visio ?",
-    a: "Si Damien constate que la réparation nécessite une intervention physique, la séance ne vous sera pas facturée."
-  },
-  {
-    q: "Puis-je annuler mon rendez-vous ?",
-    a: "Oui, jusqu'à 24h avant la séance via le lien dans votre email de confirmation. Aucun débit ne sera effectué."
-  },
-  {
-    q: "Quels types de vélos sont pris en charge ?",
-    a: "Vélos de route, VTT, vélos de ville, vélos électriques — tous types de vélos sont acceptés."
-  },
+  { q: "Comment ça marche ?", a: "Vous réservez un créneau en ligne, puis vous rejoignez Damien en visio via Google Meet. Il diagnostique votre problème et vous guide pas à pas pour réparer votre vélo vous-même." },
+  { q: "De quoi ai-je besoin pour la séance ?", a: "D'un smartphone ou ordinateur avec caméra, d'une bonne connexion internet, et bien sûr de votre vélo à portée de main. Un minimum d'outillage de base peut être utile (clés allen, tournevis)." },
+  { q: "Quand est-ce que ma carte est débitée ?", a: "Votre carte est uniquement débitée après la réparation. À la réservation, on effectue simplement une autorisation pour sécuriser le créneau." },
+  { q: "Que se passe-t-il si mon problème n'est pas réparable en visio ?", a: "Si Damien constate que la réparation nécessite une intervention physique, la séance ne vous sera pas facturée." },
+  { q: "Puis-je annuler mon rendez-vous ?", a: "Oui, jusqu'à 24h avant la séance via le lien dans votre email de confirmation. Aucun débit ne sera effectué." },
+  { q: "Quels types de vélos sont pris en charge ?", a: "Vélos de route, VTT, vélos de ville, vélos électriques — tous types de vélos sont acceptés." },
 ]
 
 export default function HomePage() {
@@ -120,7 +104,7 @@ export default function HomePage() {
         </header>
 
         <section style={{ background: 'linear-gradient(135deg, #042C53 0%, #185FA5 100%)', padding: '64px 24px' }}>
-          <div style={{ maxWidth: 1000, margin: '0 auto', display: 'flex', alignItems: 'center', gap: 48, flexWrap: 'wrap' }}>
+          <div style={{ maxWidth: 1000, margin: '0 auto', display: 'flex', alignItems: 'center', gap: 48, flexWrap: 'wrap', justifyContent: 'center' }}>
             <div style={{ flex: 1, minWidth: 280, color: 'white' }}>
               <p style={{ fontSize: 12, letterSpacing: '0.15em', textTransform: 'uppercase', color: '#B5D4F4', marginBottom: 16, fontWeight: 600 }}>Réparation vélo en visio</p>
               <h1 style={{ fontFamily: font, fontSize: 36, fontWeight: 800, lineHeight: 1.25, margin: '0 0 16px' }}>
@@ -142,8 +126,8 @@ export default function HomePage() {
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: 24 }}>
             {[
               { num: '1', icon: '📅', title: 'Réservez un créneau', desc: 'Choisissez un horaire disponible et renseignez votre problème. Votre carte est sécurisée mais pas encore débitée.' },
-              { num: '2', icon: '🎥', title: 'Rejoignez la visio', desc: 'À l\'heure du rendez-vous, connectez-vous via Google Meet depuis votre téléphone ou ordinateur.' },
-              { num: '3', icon: '🔧', title: 'Réparez votre vélo', desc: 'Damien vous guide pas à pas. Votre carte n\'est débitée qu\'une fois la réparation effectuée.' },
+              { num: '2', icon: '🎥', title: 'Rejoignez la visio', desc: "À l'heure du rendez-vous, connectez-vous via Google Meet depuis votre téléphone ou ordinateur." },
+              { num: '3', icon: '🔧', title: 'Réparez votre vélo', desc: "Damien vous guide pas à pas. Votre carte n'est débitée qu'une fois la réparation effectuée." },
             ].map(step => (
               <div key={step.num} style={{ background: 'white', borderRadius: 16, padding: 28, border: '1px solid #E6F1FB', textAlign: 'center' }}>
                 <div style={{ width: 52, height: 52, borderRadius: '50%', background: '#E6F1FB', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 16px', fontSize: 24 }}>
