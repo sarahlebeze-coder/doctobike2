@@ -111,9 +111,14 @@ export default function HomePage() {
       </section>
 
       <footer style={{ background: '#042C53', padding: '32px 24px', textAlign: 'center' }}>
-        <p style={{ color: '#B5D4F4', fontSize: 13, margin: '0 0 8px' }}>© 2024 Doctobike — Réparation vélo en visio</p>
-        <Link href="/booking" style={{ color: '#378ADD', fontSize: 13, textDecoration: 'none' }}>Prendre rendez-vous</Link>
-      </footer>
+  <p style={{ color: '#B5D4F4', fontSize: 13, margin: '0 0 12px' }}>© 2024 Doctobike — Réparation vélo en visio</p>
+  <div style={{ display: 'flex', justifyContent: 'center', gap: 24, flexWrap: 'wrap' }}>
+    <Link href="/mentions-legales" style={{ color: '#378ADD', fontSize: 13, textDecoration: 'none' }}>Mentions légales</Link>
+    <Link href="/cgv" style={{ color: '#378ADD', fontSize: 13, textDecoration: 'none' }}>CGV</Link>
+    <Link href="/confidentialite" style={{ color: '#378ADD', fontSize: 13, textDecoration: 'none' }}>Confidentialité</Link>
+    <Link href="/booking" style={{ color: '#378ADD', fontSize: 13, textDecoration: 'none' }}>Prendre rendez-vous</Link>
+  </div>
+</footer>
 
     </div>
   )
