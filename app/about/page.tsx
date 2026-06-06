@@ -24,37 +24,6 @@ const Logo = () => (
   </div>
 )
 
-const experiences = [
-  {
-    period: '2023 — aujourd\'hui',
-    role: 'Fondateur',
-    company: 'Doctobike',
-    desc: 'Création du service de réparation vélo en visio. Accompagnement de cyclistes partout en France pour diagnostiquer et réparer leur vélo depuis chez eux.',
-    color: '#185FA5',
-  },
-  {
-    period: '2021 — 2023',
-    role: 'Technicien vélo',
-    company: 'Fabricant de vélos pour collectivités territoriales',
-    desc: 'Maintenance et réparation de flottes de vélos pour les collectivités. Expertise sur les vélos robustes et les systèmes d\'assistance électrique.',
-    color: '#378ADD',
-  },
-  {
-    period: '2019 — 2021',
-    role: 'Mécanicien cycles',
-    company: 'Marque de vélo électrique parisienne',
-    desc: 'Spécialisation sur les vélos à assistance électrique : diagnostic, réparation moteur, batterie, electronique embarquée.',
-    color: '#378ADD',
-  },
-  {
-    period: '2015 — 2019',
-    role: 'Gérant',
-    company: 'Boutique de vente et réparation de vélos — Paris',
-    desc: 'Gestion complète d\'une boutique parisienne : vente, réparation tous types de vélos, relation client, gestion des stocks.',
-    color: '#378ADD',
-  },
-]
-
 const specialties = [
   { icon: '🚴', label: 'Vélo de route' },
   { icon: '🏔️', label: 'VTT' },
@@ -97,9 +66,6 @@ export default function AboutPage() {
               <div style={{ background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)', borderRadius: 20, padding: '6px 16px', fontSize: 13, color: '#E6F1FB' }}>
                 🏆 Étape du Tour de France 2025
               </div>
-              <div style={{ background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)', borderRadius: 20, padding: '6px 16px', fontSize: 13, color: '#E6F1FB' }}>
-                📍 Paris
-              </div>
             </div>
           </div>
         </section>
@@ -109,7 +75,7 @@ export default function AboutPage() {
           {/* Citation */}
           <div style={{ background: 'white', borderRadius: 16, border: '1px solid #E6F1FB', borderLeft: '4px solid #185FA5', padding: '24px 28px', marginBottom: 40 }}>
             <p style={{ fontSize: 17, color: '#042C53', lineHeight: 1.7, margin: 0, fontStyle: 'italic' }}>
-              "J'ai passé des années à réparer des vélos en atelier à Paris. Avec Doctobike, je veux rendre cette expertise accessible à tous, depuis chez soi. Parce qu'un vélo en panne ne devrait pas vous immobiliser."
+              "Pouvoir réparer son vélo à tout moment, facilement et rapidement. Avec Doctobike, vous serez accompagné dans la réparation de A à Z. Un accompagnement entièrement personnalisé dès que vous en avez besoin."
             </p>
             <p style={{ margin: '12px 0 0', color: '#185FA5', fontWeight: 700, fontSize: 14 }}>— Damien, fondateur de Doctobike</p>
           </div>
@@ -124,27 +90,6 @@ export default function AboutPage() {
                 Ce diplôme reconnu par l'État certifie les compétences professionnelles en mécanique cycles : diagnostic, réparation, réglage et entretien de tous types de vélos.
               </p>
             </div>
-          </div>
-
-          {/* Parcours */}
-          <h2 style={{ color: '#042C53', fontWeight: 800, fontSize: 22, marginBottom: 24 }}>Parcours professionnel</h2>
-          <div style={{ position: 'relative', marginBottom: 40 }}>
-            {experiences.map((exp, i) => (
-              <div key={i} style={{ display: 'flex', gap: 20, marginBottom: 24 }}>
-                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', flexShrink: 0 }}>
-                  <div style={{ width: 14, height: 14, borderRadius: '50%', background: exp.color, border: '2px solid white', boxShadow: `0 0 0 3px ${exp.color}40`, marginTop: 4 }}/>
-                  {i < experiences.length - 1 && (
-                    <div style={{ width: 2, flex: 1, background: '#E6F1FB', marginTop: 8 }}/>
-                  )}
-                </div>
-                <div style={{ background: 'white', borderRadius: 14, border: '1px solid #E6F1FB', padding: '16px 20px', flex: 1, marginBottom: i < experiences.length - 1 ? 0 : 0 }}>
-                  <div style={{ fontSize: 12, color: '#185FA5', fontWeight: 700, marginBottom: 4, textTransform: 'uppercase', letterSpacing: '0.08em' }}>{exp.period}</div>
-                  <div style={{ fontSize: 16, fontWeight: 800, color: '#042C53', marginBottom: 2 }}>{exp.role}</div>
-                  <div style={{ fontSize: 13, color: '#185FA5', fontWeight: 600, marginBottom: 8 }}>{exp.company}</div>
-                  <p style={{ color: '#666', fontSize: 13, lineHeight: 1.6, margin: 0 }}>{exp.desc}</p>
-                </div>
-              </div>
-            ))}
           </div>
 
           {/* Spécialités */}
@@ -163,7 +108,7 @@ export default function AboutPage() {
             <div style={{ fontSize: 32, marginBottom: 12 }}>🏆</div>
             <h2 style={{ fontWeight: 800, fontSize: 20, margin: '0 0 12px', color: '#FAC775' }}>L'étape du Tour de France — Juillet 2025</h2>
             <p style={{ color: '#B5D4F4', fontSize: 15, lineHeight: 1.7, margin: 0 }}>
-              En juillet 2025, Damien a relevé son plus grand défi cycliste : compléter une étape officielle du Tour de France. Une expérience qui confirme non seulement sa passion pour le vélo, mais aussi sa connaissance intime de ce que les cyclistes — amateurs comme confirmés — vivent sur la route.
+              En juillet 2025, Damien a relevé son plus grand défi cycliste : participer et terminer l'Etape du Tour. Une expérience qui confirme non seulement sa passion pour le vélo, mais aussi sa connaissance intime de ce que les cyclistes — amateurs comme confirmés — vivent sur la route.
             </p>
           </div>
 
