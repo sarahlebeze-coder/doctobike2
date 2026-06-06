@@ -42,19 +42,22 @@ export default function NavHeader() {
         </Link>
 
         {/* Desktop nav */}
-        <nav style={{ display: 'flex', alignItems: 'center', gap: 8 }} className="desktop-nav">
+        <nav className="desktop-nav" style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
           <Link href="/" style={{ fontSize: 14, color: '#444', textDecoration: 'none', padding: '8px 12px', borderRadius: 8, fontFamily: font, fontWeight: 600 }}>
             Accueil
           </Link>
           <Link href="/about" style={{ fontSize: 14, color: '#444', textDecoration: 'none', padding: '8px 12px', borderRadius: 8, fontFamily: font, fontWeight: 600 }}>
             À propos
           </Link>
-          <Link href="/booking" style={{ background: '#185FA5', color: 'white', padding: '10px 18px', borderRadius: 10, textDecoration: 'none', fontSize: 14, fontWeight: 700, fontFamily: font, whiteSpace: 'nowrap' }}>
+          <Link href="/tarifs" style={{ fontSize: 14, color: '#444', textDecoration: 'none', padding: '8px 12px', borderRadius: 8, fontFamily: font, fontWeight: 600 }}>
+            Tarifs
+          </Link>
+          <Link href="/booking" style={{ background: '#185FA5', color: 'white', padding: '10px 18px', borderRadius: 10, textDecoration: 'none', fontSize: 14, fontWeight: 700, fontFamily: font, whiteSpace: 'nowrap', marginLeft: 8 }}>
             Réserver
           </Link>
         </nav>
 
-        {/* Mobile hamburger */}
+        {/* Hamburger mobile */}
         <button
           onClick={() => setMenuOpen(!menuOpen)}
           className="hamburger"
@@ -82,6 +85,9 @@ export default function NavHeader() {
           <Link href="/about" onClick={() => setMenuOpen(false)} style={{ fontSize: 16, color: '#042C53', textDecoration: 'none', padding: '12px 16px', borderRadius: 10, fontFamily: font, fontWeight: 700 }}>
             À propos
           </Link>
+          <Link href="/tarifs" onClick={() => setMenuOpen(false)} style={{ fontSize: 16, color: '#042C53', textDecoration: 'none', padding: '12px 16px', borderRadius: 10, fontFamily: font, fontWeight: 700 }}>
+            Tarifs
+          </Link>
           <Link href="/booking" onClick={() => setMenuOpen(false)} style={{ fontSize: 16, background: '#185FA5', color: 'white', textDecoration: 'none', padding: '12px 16px', borderRadius: 10, fontFamily: font, fontWeight: 700, textAlign: 'center', marginTop: 4 }}>
             Réserver
           </Link>
@@ -89,7 +95,7 @@ export default function NavHeader() {
       )}
 
       <style>{`
-        @media (max-width: 480px) {
+        @media (max-width: 600px) {
           .desktop-nav { display: none !important; }
           .hamburger { display: flex !important; }
         }
