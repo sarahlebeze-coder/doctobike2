@@ -24,6 +24,62 @@ const Logo = () => (
   </div>
 )
 
+const HeroIllustration = () => (
+  <div style={{ flexShrink: 0, width: 320, height: 320, borderRadius: '50%', background: 'rgba(255,255,255,0.08)', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '2px solid rgba(255,255,255,0.15)' }}>
+    <svg width="220" height="220" viewBox="0 0 220 220" fill="none">
+      {/* Roues */}
+      <circle cx="55" cy="145" r="45" fill="none" stroke="#B5D4F4" strokeWidth="6"/>
+      <circle cx="55" cy="145" r="8" fill="#B5D4F4"/>
+      <circle cx="165" cy="145" r="45" fill="none" stroke="#B5D4F4" strokeWidth="6"/>
+      <circle cx="165" cy="145" r="8" fill="#B5D4F4"/>
+      {/* Rayons roue gauche */}
+      <line x1="55" y1="100" x2="55" y2="145" stroke="#B5D4F4" strokeWidth="2"/>
+      <line x1="55" y1="145" x2="19" y2="162" stroke="#B5D4F4" strokeWidth="2"/>
+      <line x1="55" y1="145" x2="91" y2="162" stroke="#B5D4F4" strokeWidth="2"/>
+      <line x1="10" y1="145" x2="55" y2="145" stroke="#B5D4F4" strokeWidth="2"/>
+      <line x1="100" y1="145" x2="55" y2="145" stroke="#B5D4F4" strokeWidth="2"/>
+      {/* Rayons roue droite */}
+      <line x1="165" y1="100" x2="165" y2="145" stroke="#B5D4F4" strokeWidth="2"/>
+      <line x1="165" y1="145" x2="129" y2="162" stroke="#B5D4F4" strokeWidth="2"/>
+      <line x1="165" y1="145" x2="201" y2="162" stroke="#B5D4F4" strokeWidth="2"/>
+      <line x1="120" y1="145" x2="165" y2="145" stroke="#B5D4F4" strokeWidth="2"/>
+      <line x1="210" y1="145" x2="165" y2="145" stroke="#B5D4F4" strokeWidth="2"/>
+      {/* Cadre */}
+      <path d="M55 145 L110 80 L165 145" fill="none" stroke="#E6F1FB" strokeWidth="5" strokeLinejoin="round"/>
+      <path d="M110 80 L140 145" fill="none" stroke="#E6F1FB" strokeWidth="5" strokeLinecap="round"/>
+      <path d="M85 145 L110 80" fill="none" stroke="#E6F1FB" strokeWidth="5" strokeLinecap="round"/>
+      {/* Guidon */}
+      <line x1="110" y1="80" x2="110" y2="55" stroke="#E6F1FB" strokeWidth="5" strokeLinecap="round"/>
+      <line x1="95" y1="55" x2="125" y2="55" stroke="#E6F1FB" strokeWidth="5" strokeLinecap="round"/>
+      <circle cx="95" cy="55" r="4" fill="#FAC775"/>
+      <circle cx="125" cy="55" r="4" fill="#FAC775"/>
+      {/* Selle */}
+      <line x1="140" y1="145" x2="140" y2="105" stroke="#E6F1FB" strokeWidth="5" strokeLinecap="round"/>
+      <line x1="125" y1="105" x2="158" y2="105" stroke="#E6F1FB" strokeWidth="6" strokeLinecap="round"/>
+      {/* Pédalier */}
+      <circle cx="110" cy="145" r="10" fill="none" stroke="#FAC775" strokeWidth="4"/>
+      <line x1="100" y1="155" x2="90" y2="165" stroke="#FAC775" strokeWidth="4" strokeLinecap="round"/>
+      <line x1="120" y1="135" x2="130" y2="125" stroke="#FAC775" strokeWidth="4" strokeLinecap="round"/>
+      {/* Écran visio */}
+      <rect x="148" y="28" width="58" height="42" rx="6" fill="#185FA5" stroke="#B5D4F4" strokeWidth="2"/>
+      <rect x="153" y="33" width="48" height="28" rx="3" fill="#042C53"/>
+      <circle cx="162" cy="47" r="8" fill="#378ADD" opacity="0.6"/>
+      <circle cx="162" cy="47" r="4" fill="#E6F1FB"/>
+      <line x1="177" y1="42" x2="193" y2="42" stroke="#B5D4F4" strokeWidth="2" strokeLinecap="round"/>
+      <line x1="177" y1="47" x2="190" y2="47" stroke="#B5D4F4" strokeWidth="2" strokeLinecap="round"/>
+      <line x1="177" y1="52" x2="188" y2="52" stroke="#B5D4F4" strokeWidth="2" strokeLinecap="round"/>
+      <line x1="177" y1="70" x2="177" y2="80" stroke="#B5D4F4" strokeWidth="2"/>
+      <line x1="170" y1="80" x2="184" y2="80" stroke="#B5D4F4" strokeWidth="3" strokeLinecap="round"/>
+      {/* Clé à molette */}
+      <g transform="translate(18,30) rotate(-30)">
+        <rect x="-4" y="-18" width="8" height="26" rx="2" fill="#FAC775"/>
+        <rect x="-7" y="-22" width="14" height="8" rx="3" fill="#FAC775"/>
+        <rect x="-3" y="8" width="6" height="4" rx="1" fill="#FAC775"/>
+      </g>
+    </svg>
+  </div>
+)
+
 const faqs = [
   {
     q: "Comment ça marche ?",
@@ -73,7 +129,7 @@ export default function HomePage() {
           <div style={{ maxWidth: 1000, margin: '0 auto', display: 'flex', alignItems: 'center', gap: 48, flexWrap: 'wrap' }}>
             <div style={{ flex: 1, minWidth: 280, color: 'white' }}>
               <p style={{ fontSize: 12, letterSpacing: '0.15em', textTransform: 'uppercase', color: '#B5D4F4', marginBottom: 16, fontWeight: 600 }}>Réparation vélo en visio</p>
-              <h1 style={{ fontFamily: font, fontSize: 36, fontWeight: 800, marginBottom: 16, lineHeight: 1.25, margin: '0 0 16px' }}>
+              <h1 style={{ fontFamily: font, fontSize: 36, fontWeight: 800, lineHeight: 1.25, margin: '0 0 16px' }}>
                 Réparez votre vélo<br />depuis chez vous
               </h1>
               <p style={{ color: '#B5D4F4', fontSize: 16, lineHeight: 1.7, margin: '0 0 32px', maxWidth: 420 }}>
@@ -83,13 +139,7 @@ export default function HomePage() {
                 Prendre rendez-vous →
               </Link>
             </div>
-            <div style={{ flexShrink: 0, borderRadius: 20, overflow: 'hidden', width: 300, height: 380, boxShadow: '0 20px 60px rgba(0,0,0,0.3)' }}>
-              <img
-                src="/damien.jpg"
-                alt="Damien, réparateur vélo Doctobike"
-                style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center top' }}
-              />
-            </div>
+            <HeroIllustration />
           </div>
         </section>
 
