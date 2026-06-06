@@ -7,58 +7,58 @@ const packs = [
     name: 'Pack Découverte',
     price: '25€',
     duration: '30 min',
-    color: '#378ADD',
     bgColor: '#E6F1FB',
     icon: '🔍',
     description: 'Idéal pour identifier un problème ou savoir comment entretenir son vélo.',
     features: [
-      'Diagnostic complet en visio',
-      'Conseils d\'entretien personnalisés',
-      'Recommandations sur les pièces à changer',
+      "Diagnostic complet en visio",
+      "Conseils d'entretien personnalisés",
+      "Recommandations sur les pièces à changer",
     ],
-    cta: 'Réserver ce pack',
     highlight: false,
   },
   {
     name: 'Pack Dépannage',
     price: '45€',
     duration: 'Entre 45 min et 1h',
-    color: '#185FA5',
     bgColor: '#185FA5',
     icon: '🔧',
-    description: 'Pour réparer votre vélo en direct avec l\'aide de Damien.',
+    description: "Pour réparer votre vélo en direct avec l'aide de Damien.",
     features: [
-      'Accompagnement visio jusqu\'à 1h',
-      'Aide à la réparation en direct',
+      "Accompagnement visio jusqu'à 1h",
+      "Aide à la réparation en direct",
       'Guide simplifié "la réparation pour les nuls"',
     ],
-    cta: 'Réserver ce pack',
     highlight: true,
   },
   {
     name: 'Pack Expert',
     price: '90€',
-    duration: 'Jusqu\'à 2h',
-    color: '#042C53',
+    duration: "Jusqu'à 2h",
     bgColor: '#042C53',
     icon: '⭐',
-    description: 'Pour les réparations importantes et devenir autonome sur son vélo.',
+    description: "Pour les réparations importantes et devenir autonome sur son vélo.",
     features: [
-      'Diagnostic complet en visio',
-      'Accompagnement réparation importante',
+      "Diagnostic complet en visio",
+      "Accompagnement réparation importante",
       'Guide complet "devenir un as de la mécanique"',
-      'Jusqu\'à 2h d\'accompagnement',
+      "Jusqu'à 2h d'accompagnement",
     ],
-    cta: 'Réserver ce pack',
     highlight: false,
   },
+]
+
+const engagements = [
+  { icon: '💳', title: 'Paiement après séance', desc: "Votre carte n'est débitée qu'une fois la séance terminée." },
+  { icon: '❌', title: 'Annulation gratuite', desc: "Annulez jusqu'à 24h avant sans frais." },
+  { icon: '🚲', title: 'Non réparable = gratuit', desc: "Si on ne peut pas réparer en visio, vous ne payez pas." },
+  { icon: '🎥', title: 'Visio sécurisée', desc: "Séance via Google Meet, simple et fiable." },
 ]
 
 export default function TarifsPage() {
   return (
     <div style={{ minHeight: '100vh', background: '#F8FAFF', fontFamily: font }}>
 
-      {/* Hero */}
       <section style={{ background: 'linear-gradient(135deg, #042C53 0%, #185FA5 100%)', padding: '64px 24px', textAlign: 'center' }}>
         <p style={{ fontSize: 12, letterSpacing: '0.15em', textTransform: 'uppercase', color: '#B5D4F4', marginBottom: 12, fontWeight: 600 }}>Nos offres</p>
         <h1 style={{ fontFamily: font, fontSize: 36, fontWeight: 800, color: 'white', margin: '0 0 16px', lineHeight: 1.25 }}>
@@ -69,10 +69,7 @@ export default function TarifsPage() {
         </p>
       </section>
 
-      {/* Packs */}
       <section style={{ maxWidth: 1000, margin: '0 auto', padding: '48px 24px' }}>
-
-        {/* Badge meilleure offre */}
         <div style={{ textAlign: 'center', marginBottom: 32 }}>
           <span style={{ background: '#FAC775', color: '#042C53', fontSize: 13, fontWeight: 700, padding: '6px 16px', borderRadius: 20 }}>
             ⭐ Le plus populaire : Pack Dépannage
@@ -95,16 +92,13 @@ export default function TarifsPage() {
                   Le plus populaire
                 </div>
               )}
-
               <div style={{ fontSize: 36, marginBottom: 16 }}>{pack.icon}</div>
               <h2 style={{ color: pack.highlight ? 'white' : '#042C53', fontWeight: 800, fontSize: 20, margin: '0 0 8px' }}>{pack.name}</h2>
               <p style={{ color: pack.highlight ? '#B5D4F4' : '#666', fontSize: 14, margin: '0 0 20px', lineHeight: 1.6 }}>{pack.description}</p>
-
               <div style={{ marginBottom: 24 }}>
                 <span style={{ fontSize: 48, fontWeight: 800, color: pack.highlight ? 'white' : '#042C53', fontFamily: font }}>{pack.price}</span>
                 <span style={{ fontSize: 14, color: pack.highlight ? '#B5D4F4' : '#888', marginLeft: 8 }}>{pack.duration}</span>
               </div>
-
               <div style={{ display: 'flex', flexDirection: 'column', gap: 10, marginBottom: 28 }}>
                 {pack.features.map((feature, j) => (
                   <div key={j} style={{ display: 'flex', alignItems: 'flex-start', gap: 10 }}>
@@ -113,7 +107,6 @@ export default function TarifsPage() {
                   </div>
                 ))}
               </div>
-
               <Link href="/booking" style={{
                 display: 'block',
                 textAlign: 'center',
@@ -126,17 +119,47 @@ export default function TarifsPage() {
                 fontWeight: 800,
                 fontFamily: font,
               }}>
-                {pack.cta} →
+                Réserver ce pack →
               </Link>
             </div>
           ))}
         </div>
       </section>
 
-      {/* Garantie */}
       <section style={{ background: '#E6F1FB', padding: '48px 24px' }}>
         <div style={{ maxWidth: 800, margin: '0 auto' }}>
           <h2 style={{ textAlign: 'center', color: '#042C53', fontWeight: 800, fontSize: 22, marginBottom: 32 }}>Notre engagement</h2>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 16 }}>
-            {[
-              { icon: '
+            {engagements.map((item, i) => (
+              <div key={i} style={{ background: 'white', borderRadius: 14, padding: '20px 16px', textAlign: 'center', border: '1px solid #B5D4F4' }}>
+                <div style={{ fontSize: 28, marginBottom: 10 }}>{item.icon}</div>
+                <h3 style={{ color: '#042C53', fontWeight: 700, fontSize: 14, margin: '0 0 6px' }}>{item.title}</h3>
+                <p style={{ color: '#666', fontSize: 13, lineHeight: 1.5, margin: 0 }}>{item.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section style={{ padding: '64px 24px', textAlign: 'center' }}>
+        <h2 style={{ color: '#042C53', fontWeight: 800, fontSize: 24, marginBottom: 12 }}>Pas sûr du pack à choisir ?</h2>
+        <p style={{ color: '#666', fontSize: 15, maxWidth: 400, margin: '0 auto 28px', lineHeight: 1.6 }}>
+          Commencez par le Pack Découverte — Damien vous guidera vers la meilleure solution.
+        </p>
+        <Link href="/booking" style={{ display: 'inline-block', background: '#185FA5', color: 'white', padding: '14px 36px', borderRadius: 12, textDecoration: 'none', fontSize: 16, fontWeight: 800 }}>
+          Réserver ma séance →
+        </Link>
+      </section>
+
+      <footer style={{ background: '#042C53', padding: '32px 24px', textAlign: 'center' }}>
+        <p style={{ color: '#B5D4F4', fontSize: 13, margin: '0 0 12px' }}>© 2024 Doctobike — Réparation vélo en visio</p>
+        <div style={{ display: 'flex', justifyContent: 'center', gap: 24, flexWrap: 'wrap' }}>
+          <Link href="/mentions-legales" style={{ color: '#378ADD', fontSize: 13, textDecoration: 'none' }}>Mentions légales</Link>
+          <Link href="/cgv" style={{ color: '#378ADD', fontSize: 13, textDecoration: 'none' }}>CGV</Link>
+          <Link href="/confidentialite" style={{ color: '#378ADD', fontSize: 13, textDecoration: 'none' }}>Confidentialité</Link>
+        </div>
+      </footer>
+
+    </div>
+  )
+}
