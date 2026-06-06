@@ -25,57 +25,40 @@ const Logo = () => (
 )
 
 const HeroIllustration = () => (
-  <svg width="300" height="300" viewBox="0 0 300 300" fill="none">
-    <circle cx="150" cy="150" r="145" fill="#0C447C"/>
-    <circle cx="150" cy="150" r="145" fill="none" stroke="#378ADD" strokeWidth="2"/>
-    <circle cx="150" cy="150" r="133" fill="none" stroke="#185FA5" strokeWidth="1" strokeDasharray="6 4"/>
-
-    {/* Roue arrière */}
-    <circle cx="100" cy="175" r="52" fill="none" stroke="#B5D4F4" strokeWidth="5"/>
-    <circle cx="100" cy="175" r="7" fill="#B5D4F4"/>
-    <line x1="100" y1="123" x2="100" y2="175" stroke="#B5D4F4" strokeWidth="1.5" opacity="0.5"/>
-    <line x1="48" y1="175" x2="100" y2="175" stroke="#B5D4F4" strokeWidth="1.5" opacity="0.5"/>
-    <line x1="152" y1="175" x2="100" y2="175" stroke="#B5D4F4" strokeWidth="1.5" opacity="0.5"/>
-    <line x1="63" y1="138" x2="137" y2="212" stroke="#B5D4F4" strokeWidth="1.5" opacity="0.5"/>
-    <line x1="137" y1="138" x2="63" y2="212" stroke="#B5D4F4" strokeWidth="1.5" opacity="0.5"/>
-
-    {/* Roue avant */}
-    <circle cx="200" cy="175" r="52" fill="none" stroke="#B5D4F4" strokeWidth="5"/>
-    <circle cx="200" cy="175" r="7" fill="#B5D4F4"/>
-    <line x1="200" y1="123" x2="200" y2="175" stroke="#B5D4F4" strokeWidth="1.5" opacity="0.5"/>
-    <line x1="148" y1="175" x2="200" y2="175" stroke="#B5D4F4" strokeWidth="1.5" opacity="0.5"/>
-    <line x1="252" y1="175" x2="200" y2="175" stroke="#B5D4F4" strokeWidth="1.5" opacity="0.5"/>
-    <line x1="163" y1="138" x2="237" y2="212" stroke="#B5D4F4" strokeWidth="1.5" opacity="0.5"/>
-    <line x1="237" y1="138" x2="163" y2="212" stroke="#B5D4F4" strokeWidth="1.5" opacity="0.5"/>
-
-    {/* Cadre — tube de selle vertical */}
-    <line x1="130" y1="175" x2="128" y2="108" stroke="#E6F1FB" strokeWidth="5" strokeLinecap="round"/>
-    {/* Tube supérieur */}
-    <line x1="128" y1="108" x2="192" y2="114" stroke="#E6F1FB" strokeWidth="5" strokeLinecap="round"/>
-    {/* Tube diagonal */}
-    <line x1="130" y1="175" x2="192" y2="114" stroke="#E6F1FB" strokeWidth="4" strokeLinecap="round"/>
-    {/* Base pédalier → roue arrière */}
-    <line x1="130" y1="175" x2="100" y2="175" stroke="#E6F1FB" strokeWidth="5" strokeLinecap="round"/>
-    {/* Hauban */}
-    <line x1="128" y1="108" x2="100" y2="175" stroke="#E6F1FB" strokeWidth="3.5" strokeLinecap="round"/>
-    {/* Fourche avant */}
-    <line x1="192" y1="114" x2="200" y2="175" stroke="#E6F1FB" strokeWidth="5" strokeLinecap="round"/>
-
-    {/* Selle */}
-    <line x1="128" y1="108" x2="126" y2="96" stroke="#E6F1FB" strokeWidth="4" strokeLinecap="round"/>
-    <line x1="114" y1="93" x2="138" y2="93" stroke="#E6F1FB" strokeWidth="6" strokeLinecap="round"/>
-
-    {/* Pédalier */}
-    <circle cx="130" cy="175" r="11" fill="none" stroke="#FAC775" strokeWidth="3.5"/>
-    <line x1="119" y1="183" x2="108" y2="192" stroke="#FAC775" strokeWidth="3.5" strokeLinecap="round"/>
-    <line x1="141" y1="167" x2="152" y2="158" stroke="#FAC775" strokeWidth="3.5" strokeLinecap="round"/>
-
-    {/* Guidon avant */}
-    <line x1="192" y1="114" x2="190" y2="94" stroke="#E6F1FB" strokeWidth="4" strokeLinecap="round"/>
-    <path d="M179 91 Q190 85 201 91" fill="none" stroke="#E6F1FB" strokeWidth="5" strokeLinecap="round"/>
-    <circle cx="179" cy="91" r="4" fill="#FAC775"/>
-    <circle cx="201" cy="91" r="4" fill="#FAC775"/>
-  </svg>
+  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, flexShrink: 0, width: 340 }}>
+    <div style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 14, padding: 20 }}>
+      <div style={{ color: '#E24B4A', fontSize: 11, fontWeight: 700, letterSpacing: '0.1em', marginBottom: 16 }}>SANS DOCTOBIKE</div>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+        {[
+          { icon: '😤', text: 'Déplacement atelier' },
+          { icon: '⏳', text: "File d'attente" },
+          { icon: '💸', text: 'Coût imprévisible' },
+          { icon: '📅', text: "Semaines d'attente" },
+          { icon: '🚫', text: 'Vélo inaccessible' },
+        ].map((item, i) => (
+          <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 8, color: '#aaa', fontSize: 13 }}>
+            <span>{item.icon}</span> {item.text}
+          </div>
+        ))}
+      </div>
+    </div>
+    <div style={{ background: 'rgba(56,138,221,0.15)', border: '1px solid #378ADD', borderRadius: 14, padding: 20 }}>
+      <div style={{ color: '#FAC775', fontSize: 11, fontWeight: 700, letterSpacing: '0.1em', marginBottom: 16 }}>AVEC DOCTOBIKE</div>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+        {[
+          { icon: '🏠', text: 'Depuis chez vous' },
+          { icon: '⚡', text: 'RDV immédiat' },
+          { icon: '✅', text: 'Prix fixe et clair' },
+          { icon: '🎥', text: 'Visio en direct' },
+          { icon: '🔧', text: 'Guidé pas à pas' },
+        ].map((item, i) => (
+          <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 8, color: 'white', fontSize: 13 }}>
+            <span>{item.icon}</span> {item.text}
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
 )
 
 const faqs = [
