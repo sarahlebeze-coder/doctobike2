@@ -9,6 +9,7 @@ const packs = [
     duration: '40 min',
     bgColor: '#E6F1FB',
     icon: '🔍',
+    slug: 'decouverte',
     description: "Idéal pour identifier un problème et avoir des conseils rapides sur l'entretien de votre vélo au quotidien.",
     features: [
       "Diagnostic complet en visio",
@@ -23,6 +24,7 @@ const packs = [
     duration: 'Entre 45 min et 1h',
     bgColor: '#185FA5',
     icon: '🔧',
+    slug: 'depannage',
     description: "Réparez votre vélo maintenant et apprenez à le faire seul demain.",
     features: [
       "Diagnostic complet en visio",
@@ -37,6 +39,7 @@ const packs = [
     duration: "Jusqu'à 2h",
     bgColor: '#042C53',
     icon: '⭐',
+    slug: 'expert',
     description: "Réparez, optimisez, devenez autonome. Un accompagnement complet pour les passionnés.",
     features: [
       "Diagnostic complet en visio",
@@ -107,7 +110,7 @@ export default function TarifsPage() {
                   </div>
                 ))}
               </div>
-              <Link href="/booking" style={{
+              <Link href={`/booking?pack=${pack.slug}`} style={{
                 display: 'block',
                 textAlign: 'center',
                 background: pack.highlight ? '#FAC775' : '#185FA5',
