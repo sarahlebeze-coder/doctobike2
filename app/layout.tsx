@@ -10,6 +10,9 @@ export const metadata: Metadata = {
   alternates: {
     canonical: '/',
   },
+  verification: {
+    google: '5cviuzPjNhYDBoNMacz8y4dhxokPKB_kNTL0iHBtyTY',
+  },
   openGraph: {
     title: 'Doctobike — Réparation de vélo en visio',
     description: 'Réparez votre vélo depuis chez vous. Guidé par un expert en temps réel par vidéo.',
