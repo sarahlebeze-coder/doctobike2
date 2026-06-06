@@ -55,4 +55,98 @@ const faqs = [
 export default function HomePage() {
   return (
     <>
-      <link href="https://fonts.googleapis.com/css2?family=Nunito
+      <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+      <div style={{ minHeight: '100vh', background: '#F8FAFF', fontFamily: font }}>
+
+        {/* Header */}
+        <header style={{ background: 'white', borderBottom: '1px solid #E6F1FB', padding: '14px 24px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', position: 'sticky', top: 0, zIndex: 10 }}>
+          <Logo />
+          <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
+            <Link href="/admin" style={{ fontSize: 13, color: '#888', textDecoration: 'none' }}>Espace réparateur</Link>
+            <Link href="/booking" style={{ background: '#185FA5', color: 'white', padding: '10px 20px', borderRadius: 10, textDecoration: 'none', fontSize: 14, fontWeight: 700 }}>
+              Réserver
+            </Link>
+          </div>
+        </header>
+
+        {/* Hero */}
+        <section style={{ background: 'linear-gradient(135deg, #042C53 0%, #185FA5 100%)', padding: '64px 24px' }}>
+          <div style={{ maxWidth: 1000, margin: '0 auto', display: 'flex', alignItems: 'center', gap: 48, flexWrap: 'wrap' }}>
+            <div style={{ flex: 1, minWidth: 280, color: 'white' }}>
+              <p style={{ fontSize: 12, letterSpacing: '0.15em', textTransform: 'uppercase', color: '#B5D4F4', marginBottom: 16, fontWeight: 600 }}>Réparation vélo en visio</p>
+              <h1 style={{ fontFamily: font, fontSize: 36, fontWeight: 800, marginBottom: 16, lineHeight: 1.25, margin: '0 0 16px' }}>
+                Réparez votre vélo<br />depuis chez vous
+              </h1>
+              <p style={{ color: '#B5D4F4', fontSize: 16, lineHeight: 1.7, margin: '0 0 32px', maxWidth: 420 }}>
+                Damien, réparateur certifié, vous guide en temps réel par vidéo pour diagnostiquer et réparer votre vélo. Pas besoin de se déplacer.
+              </p>
+              <Link href="/booking" style={{ display: 'inline-block', background: '#FAC775', color: '#042C53', padding: '14px 32px', borderRadius: 12, textDecoration: 'none', fontSize: 16, fontWeight: 800 }}>
+                Prendre rendez-vous →
+              </Link>
+            </div>
+            <div style={{ flexShrink: 0, borderRadius: 20, overflow: 'hidden', width: 300, height: 380, position: 'relative', boxShadow: '0 20px 60px rgba(0,0,0,0.3)' }}>
+              <Image
+                src="/damien.jpg"
+                alt="Damien, réparateur vélo Doctobike"
+                fill
+                style={{ objectFit: 'cover', objectPosition: 'center top' }}
+                priority
+              />
+            </div>
+          </div>
+        </section>
+
+        {/* Comment ça marche */}
+        <section style={{ padding: '64px 24px', maxWidth: 1000, margin: '0 auto' }}>
+          <h2 style={{ textAlign: 'center', color: '#042C53', fontWeight: 800, fontSize: 26, marginBottom: 48 }}>Comment ça marche ?</h2>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: 24 }}>
+            {[
+              { num: '1', icon: '📅', title: 'Réservez un créneau', desc: 'Choisissez un horaire disponible et renseignez votre problème. Votre carte est sécurisée mais pas encore débitée.' },
+              { num: '2', icon: '🎥', title: 'Rejoignez la visio', desc: 'À l\'heure du rendez-vous, connectez-vous via Google Meet depuis votre téléphone ou ordinateur.' },
+              { num: '3', icon: '🔧', title: 'Réparez votre vélo', desc: 'Damien vous guide pas à pas. Votre carte n\'est débitée qu\'une fois la réparation effectuée.' },
+            ].map(step => (
+              <div key={step.num} style={{ background: 'white', borderRadius: 16, padding: 28, border: '1px solid #E6F1FB', textAlign: 'center' }}>
+                <div style={{ width: 52, height: 52, borderRadius: '50%', background: '#E6F1FB', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 16px', fontSize: 24 }}>
+                  {step.icon}
+                </div>
+                <div style={{ fontSize: 11, fontWeight: 700, color: '#378ADD', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: 8 }}>Étape {step.num}</div>
+                <h3 style={{ color: '#042C53', fontWeight: 700, fontSize: 16, marginBottom: 10 }}>{step.title}</h3>
+                <p style={{ color: '#666', fontSize: 14, lineHeight: 1.6, margin: 0 }}>{step.desc}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* CTA intermédiaire */}
+        <section style={{ background: '#E6F1FB', padding: '48px 24px', textAlign: 'center' }}>
+          <h2 style={{ color: '#042C53', fontWeight: 800, fontSize: 24, marginBottom: 12 }}>Votre vélo vous attend 🚲</h2>
+          <p style={{ color: '#185FA5', fontSize: 16, marginBottom: 28 }}>Réservez votre séance en moins de 2 minutes.</p>
+          <Link href="/booking" style={{ display: 'inline-block', background: '#185FA5', color: 'white', padding: '14px 36px', borderRadius: 12, textDecoration: 'none', fontSize: 16, fontWeight: 800 }}>
+            Réserver ma séance →
+          </Link>
+        </section>
+
+        {/* FAQ */}
+        <section style={{ padding: '64px 24px', maxWidth: 720, margin: '0 auto' }}>
+          <h2 style={{ textAlign: 'center', color: '#042C53', fontWeight: 800, fontSize: 26, marginBottom: 40 }}>Questions fréquentes</h2>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+            {faqs.map((faq, i) => (
+              <div key={i} style={{ background: 'white', borderRadius: 14, border: '1px solid #E6F1FB', padding: '20px 24px' }}>
+                <h3 style={{ color: '#042C53', fontWeight: 700, fontSize: 15, margin: '0 0 8px' }}>{faq.q}</h3>
+                <p style={{ color: '#555', fontSize: 14, lineHeight: 1.7, margin: 0 }}>{faq.a}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* Footer */}
+        <footer style={{ background: '#042C53', padding: '32px 24px', textAlign: 'center' }}>
+          <Logo />
+          <p style={{ color: '#B5D4F4', fontSize: 13, marginTop: 16 }}>© 2024 Doctobike — Réparation vélo en visio</p>
+          <Link href="/booking" style={{ color: '#378ADD', fontSize: 13, textDecoration: 'none' }}>Prendre rendez-vous</Link>
+        </footer>
+
+      </div>
+    </>
+  )
+}
