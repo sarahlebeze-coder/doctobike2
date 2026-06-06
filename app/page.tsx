@@ -25,59 +25,55 @@ const Logo = () => (
 )
 
 const HeroIllustration = () => (
-  <div style={{ flexShrink: 0, width: 320, height: 320, borderRadius: '50%', background: 'rgba(255,255,255,0.08)', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '2px solid rgba(255,255,255,0.15)' }}>
-    <svg width="220" height="220" viewBox="0 0 220 220" fill="none">
-      {/* Roues */}
-      <circle cx="55" cy="145" r="45" fill="none" stroke="#B5D4F4" strokeWidth="6"/>
-      <circle cx="55" cy="145" r="8" fill="#B5D4F4"/>
-      <circle cx="165" cy="145" r="45" fill="none" stroke="#B5D4F4" strokeWidth="6"/>
-      <circle cx="165" cy="145" r="8" fill="#B5D4F4"/>
-      {/* Rayons roue gauche */}
-      <line x1="55" y1="100" x2="55" y2="145" stroke="#B5D4F4" strokeWidth="2"/>
-      <line x1="55" y1="145" x2="19" y2="162" stroke="#B5D4F4" strokeWidth="2"/>
-      <line x1="55" y1="145" x2="91" y2="162" stroke="#B5D4F4" strokeWidth="2"/>
-      <line x1="10" y1="145" x2="55" y2="145" stroke="#B5D4F4" strokeWidth="2"/>
-      <line x1="100" y1="145" x2="55" y2="145" stroke="#B5D4F4" strokeWidth="2"/>
-      {/* Rayons roue droite */}
-      <line x1="165" y1="100" x2="165" y2="145" stroke="#B5D4F4" strokeWidth="2"/>
-      <line x1="165" y1="145" x2="129" y2="162" stroke="#B5D4F4" strokeWidth="2"/>
-      <line x1="165" y1="145" x2="201" y2="162" stroke="#B5D4F4" strokeWidth="2"/>
-      <line x1="120" y1="145" x2="165" y2="145" stroke="#B5D4F4" strokeWidth="2"/>
-      <line x1="210" y1="145" x2="165" y2="145" stroke="#B5D4F4" strokeWidth="2"/>
-      {/* Cadre */}
-      <path d="M55 145 L110 80 L165 145" fill="none" stroke="#E6F1FB" strokeWidth="5" strokeLinejoin="round"/>
-      <path d="M110 80 L140 145" fill="none" stroke="#E6F1FB" strokeWidth="5" strokeLinecap="round"/>
-      <path d="M85 145 L110 80" fill="none" stroke="#E6F1FB" strokeWidth="5" strokeLinecap="round"/>
-      {/* Guidon */}
-      <line x1="110" y1="80" x2="110" y2="55" stroke="#E6F1FB" strokeWidth="5" strokeLinecap="round"/>
-      <line x1="95" y1="55" x2="125" y2="55" stroke="#E6F1FB" strokeWidth="5" strokeLinecap="round"/>
-      <circle cx="95" cy="55" r="4" fill="#FAC775"/>
-      <circle cx="125" cy="55" r="4" fill="#FAC775"/>
-      {/* Selle */}
-      <line x1="140" y1="145" x2="140" y2="105" stroke="#E6F1FB" strokeWidth="5" strokeLinecap="round"/>
-      <line x1="125" y1="105" x2="158" y2="105" stroke="#E6F1FB" strokeWidth="6" strokeLinecap="round"/>
-      {/* Pédalier */}
-      <circle cx="110" cy="145" r="10" fill="none" stroke="#FAC775" strokeWidth="4"/>
-      <line x1="100" y1="155" x2="90" y2="165" stroke="#FAC775" strokeWidth="4" strokeLinecap="round"/>
-      <line x1="120" y1="135" x2="130" y2="125" stroke="#FAC775" strokeWidth="4" strokeLinecap="round"/>
-      {/* Écran visio */}
-      <rect x="148" y="28" width="58" height="42" rx="6" fill="#185FA5" stroke="#B5D4F4" strokeWidth="2"/>
-      <rect x="153" y="33" width="48" height="28" rx="3" fill="#042C53"/>
-      <circle cx="162" cy="47" r="8" fill="#378ADD" opacity="0.6"/>
-      <circle cx="162" cy="47" r="4" fill="#E6F1FB"/>
-      <line x1="177" y1="42" x2="193" y2="42" stroke="#B5D4F4" strokeWidth="2" strokeLinecap="round"/>
-      <line x1="177" y1="47" x2="190" y2="47" stroke="#B5D4F4" strokeWidth="2" strokeLinecap="round"/>
-      <line x1="177" y1="52" x2="188" y2="52" stroke="#B5D4F4" strokeWidth="2" strokeLinecap="round"/>
-      <line x1="177" y1="70" x2="177" y2="80" stroke="#B5D4F4" strokeWidth="2"/>
-      <line x1="170" y1="80" x2="184" y2="80" stroke="#B5D4F4" strokeWidth="3" strokeLinecap="round"/>
-      {/* Clé à molette */}
-      <g transform="translate(18,30) rotate(-30)">
-        <rect x="-4" y="-18" width="8" height="26" rx="2" fill="#FAC775"/>
-        <rect x="-7" y="-22" width="14" height="8" rx="3" fill="#FAC775"/>
-        <rect x="-3" y="8" width="6" height="4" rx="1" fill="#FAC775"/>
-      </g>
-    </svg>
-  </div>
+  <svg width="320" height="320" viewBox="0 0 680 340" fill="none">
+    <circle cx="340" cy="190" r="100" fill="#042C53"/>
+    <circle cx="340" cy="190" r="100" fill="none" stroke="#185FA5" strokeWidth="2"/>
+    <circle cx="340" cy="190" r="88" fill="none" stroke="#0C447C" strokeWidth="1" strokeDasharray="6 4"/>
+    <circle cx="285" cy="215" r="34" fill="none" stroke="#B5D4F4" strokeWidth="4"/>
+    <circle cx="285" cy="215" r="5" fill="#B5D4F4"/>
+    <line x1="285" y1="181" x2="285" y2="215" stroke="#B5D4F4" strokeWidth="1.2" opacity="0.4"/>
+    <line x1="251" y1="215" x2="285" y2="215" stroke="#B5D4F4" strokeWidth="1.2" opacity="0.4"/>
+    <line x1="319" y1="215" x2="285" y2="215" stroke="#B5D4F4" strokeWidth="1.2" opacity="0.4"/>
+    <line x1="261" y1="191" x2="309" y2="239" stroke="#B5D4F4" strokeWidth="1.2" opacity="0.4"/>
+    <line x1="309" y1="191" x2="261" y2="239" stroke="#B5D4F4" strokeWidth="1.2" opacity="0.4"/>
+    <circle cx="395" cy="215" r="34" fill="none" stroke="#B5D4F4" strokeWidth="4"/>
+    <circle cx="395" cy="215" r="5" fill="#B5D4F4"/>
+    <line x1="395" y1="181" x2="395" y2="215" stroke="#B5D4F4" strokeWidth="1.2" opacity="0.4"/>
+    <line x1="361" y1="215" x2="395" y2="215" stroke="#B5D4F4" strokeWidth="1.2" opacity="0.4"/>
+    <line x1="429" y1="215" x2="395" y2="215" stroke="#B5D4F4" strokeWidth="1.2" opacity="0.4"/>
+    <line x1="371" y1="191" x2="419" y2="239" stroke="#B5D4F4" strokeWidth="1.2" opacity="0.4"/>
+    <line x1="419" y1="191" x2="371" y2="239" stroke="#B5D4F4" strokeWidth="1.2" opacity="0.4"/>
+    <line x1="310" y1="215" x2="310" y2="158" stroke="#E6F1FB" strokeWidth="4" strokeLinecap="round"/>
+    <line x1="310" y1="158" x2="385" y2="163" stroke="#E6F1FB" strokeWidth="4" strokeLinecap="round"/>
+    <line x1="310" y1="215" x2="385" y2="163" stroke="#E6F1FB" strokeWidth="3.5" strokeLinecap="round"/>
+    <line x1="310" y1="215" x2="285" y2="215" stroke="#E6F1FB" strokeWidth="4" strokeLinecap="round"/>
+    <line x1="310" y1="158" x2="285" y2="215" stroke="#E6F1FB" strokeWidth="3" strokeLinecap="round"/>
+    <line x1="385" y1="163" x2="395" y2="215" stroke="#E6F1FB" strokeWidth="4" strokeLinecap="round"/>
+    <line x1="310" y1="158" x2="308" y2="148" stroke="#E6F1FB" strokeWidth="3" strokeLinecap="round"/>
+    <line x1="298" y1="146" x2="320" y2="146" stroke="#E6F1FB" strokeWidth="5" strokeLinecap="round"/>
+    <circle cx="310" cy="215" r="9" fill="none" stroke="#FAC775" strokeWidth="3"/>
+    <line x1="301" y1="222" x2="292" y2="230" stroke="#FAC775" strokeWidth="3" strokeLinecap="round"/>
+    <line x1="319" y1="208" x2="328" y2="200" stroke="#FAC775" strokeWidth="3" strokeLinecap="round"/>
+    <line x1="385" y1="163" x2="383" y2="145" stroke="#E6F1FB" strokeWidth="3.5" strokeLinecap="round"/>
+    <path d="M373 143 Q383 138 393 143" fill="none" stroke="#E6F1FB" strokeWidth="4" strokeLinecap="round"/>
+    <circle cx="373" cy="143" r="3.5" fill="#FAC775"/>
+    <circle cx="393" cy="143" r="3.5" fill="#FAC775"/>
+    <line x1="255" y1="130" x2="195" y2="82" stroke="#185FA5" strokeWidth="1" strokeDasharray="4 3"/>
+    <line x1="340" y1="90" x2="340" y2="44" stroke="#185FA5" strokeWidth="1" strokeDasharray="4 3"/>
+    <line x1="425" y1="130" x2="485" y2="82" stroke="#185FA5" strokeWidth="1" strokeDasharray="4 3"/>
+    <circle cx="165" cy="66" r="44" fill="#042C53" stroke="#185FA5" strokeWidth="1.5"/>
+    <text x="165" y="54" textAnchor="middle" fontFamily="sans-serif" fontSize="20">📅</text>
+    <text x="165" y="72" textAnchor="middle" fontFamily="sans-serif" fontSize="11" fontWeight="700" fill="#E6F1FB">Réservez</text>
+    <text x="165" y="86" textAnchor="middle" fontFamily="sans-serif" fontSize="10" fill="#B5D4F4">un créneau</text>
+    <circle cx="340" cy="22" r="44" fill="#042C53" stroke="#185FA5" strokeWidth="1.5"/>
+    <text x="340" y="10" textAnchor="middle" fontFamily="sans-serif" fontSize="20">🎥</text>
+    <text x="340" y="28" textAnchor="middle" fontFamily="sans-serif" fontSize="11" fontWeight="700" fill="#E6F1FB">Connectez</text>
+    <text x="340" y="43" textAnchor="middle" fontFamily="sans-serif" fontSize="10" fill="#B5D4F4">en visio</text>
+    <circle cx="515" cy="66" r="44" fill="#042C53" stroke="#185FA5" strokeWidth="1.5"/>
+    <text x="515" y="54" textAnchor="middle" fontFamily="sans-serif" fontSize="20">🔧</text>
+    <text x="515" y="72" textAnchor="middle" fontFamily="sans-serif" fontSize="11" fontWeight="700" fill="#E6F1FB">Réparez</text>
+    <text x="515" y="86" textAnchor="middle" fontFamily="sans-serif" fontSize="10" fill="#B5D4F4">votre vélo</text>
+  </svg>
 )
 
 const faqs = [
@@ -113,7 +109,6 @@ export default function HomePage() {
       <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
       <div style={{ minHeight: '100vh', background: '#F8FAFF', fontFamily: font }}>
 
-        {/* Header */}
         <header style={{ background: 'white', borderBottom: '1px solid #E6F1FB', padding: '14px 24px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', position: 'sticky', top: 0, zIndex: 10 }}>
           <Logo />
           <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
@@ -124,7 +119,6 @@ export default function HomePage() {
           </div>
         </header>
 
-        {/* Hero */}
         <section style={{ background: 'linear-gradient(135deg, #042C53 0%, #185FA5 100%)', padding: '64px 24px' }}>
           <div style={{ maxWidth: 1000, margin: '0 auto', display: 'flex', alignItems: 'center', gap: 48, flexWrap: 'wrap' }}>
             <div style={{ flex: 1, minWidth: 280, color: 'white' }}>
@@ -143,7 +137,6 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* Comment ça marche */}
         <section style={{ padding: '64px 24px', maxWidth: 1000, margin: '0 auto' }}>
           <h2 style={{ textAlign: 'center', color: '#042C53', fontWeight: 800, fontSize: 26, marginBottom: 48 }}>Comment ça marche ?</h2>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: 24 }}>
@@ -164,7 +157,6 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* CTA intermédiaire */}
         <section style={{ background: '#E6F1FB', padding: '48px 24px', textAlign: 'center' }}>
           <h2 style={{ color: '#042C53', fontWeight: 800, fontSize: 24, marginBottom: 12 }}>Votre vélo vous attend 🚲</h2>
           <p style={{ color: '#185FA5', fontSize: 16, marginBottom: 28 }}>Réservez votre séance en moins de 2 minutes.</p>
@@ -173,7 +165,6 @@ export default function HomePage() {
           </Link>
         </section>
 
-        {/* FAQ */}
         <section style={{ padding: '64px 24px', maxWidth: 720, margin: '0 auto' }}>
           <h2 style={{ textAlign: 'center', color: '#042C53', fontWeight: 800, fontSize: 26, marginBottom: 40 }}>Questions fréquentes</h2>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
@@ -186,7 +177,6 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* Footer */}
         <footer style={{ background: '#042C53', padding: '32px 24px', textAlign: 'center' }}>
           <Logo />
           <p style={{ color: '#B5D4F4', fontSize: 13, marginTop: 16 }}>© 2024 Doctobike — Réparation vélo en visio</p>
