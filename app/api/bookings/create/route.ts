@@ -3,6 +3,7 @@ import Stripe from 'stripe'
 import { google } from 'googleapis'
 import { supabaseAdmin } from '@/lib/supabase'
 import nodemailer from 'nodemailer'
+import crypto from 'crypto'
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!)
 
@@ -117,6 +118,9 @@ export async function POST(req: NextRequest) {
     const meetLink = event.data.conferenceData?.entryPoints?.[0]?.uri ?? null
     const googleEventId = event.data.id ?? null
 
+    // Génération du token d'annulation
+    const cancelToken = crypto.randomBytes(32).toString('hex')
+
     const bookingResult = await db.from('bookings').insert({
       availability_id,
       client_name,
@@ -128,6 +132,7 @@ export async function POST(req: NextRequest) {
       amount_cents: priceCents,
       google_event_id: googleEventId,
       meet_link: meetLink,
+      cancel_token: cancelToken,
     }).select('id').single()
 
     if (bookingResult.error) throw bookingResult.error
@@ -145,13 +150,22 @@ export async function POST(req: NextRequest) {
       timeZone: 'Europe/Paris',
     })
 
+    // Vérifie si le RDV est dans moins de 24h
+    const now = new Date()
+    const rdvDate = new Date(`${slot.date}T${slot.start_time}`)
+    const heuresAvantRdv = (rdvDate.getTime() - now.getTime()) / (1000 * 60 * 60)
+    const cancellable = heuresAvantRdv > 24
+
+    const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? 'https://doctobike.vercel.app'
+    const cancelUrl = `${appUrl}/cancel/${cancelToken}`
+
     const transporter = getMailTransporter()
 
     await transporter.sendMail({
       from: `Doctobike <${process.env.GMAIL_USER}>`,
       to: client_email,
       subject: '✅ Votre rendez-vous Doctobike est confirmé',
-      html: emailClientHTML({ client_name, dateFormatted, meetLink, repairerName, problem_description }),
+      html: emailClientHTML({ client_name, dateFormatted, meetLink, repairerName, problem_description, cancelUrl, cancellable }),
     })
 
     await transporter.sendMail({
@@ -165,6 +179,8 @@ export async function POST(req: NextRequest) {
       booking_id: booking.id,
       client_secret: paymentIntent.client_secret,
       meet_link: meetLink,
+      cancel_token: cancelToken,
+      cancellable,
     })
 
   } catch (err: unknown) {
@@ -180,6 +196,8 @@ function emailClientHTML(p: {
   meetLink: string | null
   repairerName: string
   problem_description?: string
+  cancelUrl: string
+  cancellable: boolean
 }) {
   return `<div style="font-family:sans-serif;max-width:520px;margin:auto;padding:32px;">
     <div style="text-align:center;margin-bottom:24px;">
@@ -194,6 +212,14 @@ function emailClientHTML(p: {
     </div>
     ${p.problem_description ? `<p><strong>Problème :</strong> ${p.problem_description}</p>` : ''}
     <p style="color:#666;font-size:13px;">Votre carte sera débitée uniquement après la réparation.</p>
+    <hr style="border:none;border-top:1px solid #E6F1FB;margin:24px 0;" />
+    ${p.cancellable
+      ? `<p style="font-size:13px;color:#666;">Vous pouvez annuler ce rendez-vous jusqu'à 24h avant la séance :<br/>
+         <a href="${p.cancelUrl}" style="color:#185FA5;">Annuler ce rendez-vous</a></p>`
+      : `<div style="background:#FFF3CD;border-radius:8px;padding:12px;margin-top:16px;">
+           <p style="margin:0;font-size:13px;color:#856404;">⚠️ Ce rendez-vous est dans moins de 24h et ne peut plus être annulé.</p>
+         </div>`
+    }
   </div>`
 }
 
