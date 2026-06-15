@@ -1,6 +1,6 @@
 import Link from 'next/link'
 
-const font = "'Nunito', sans-serif"
+const font = "'Plus Jakarta Sans', sans-serif"
 
 const HeroIllustration = () => (
   <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, flexShrink: 0, width: 340 }}>
@@ -20,7 +20,7 @@ const HeroIllustration = () => (
         ))}
       </div>
     </div>
-    <div style={{ background: 'rgba(56,138,221,0.15)', border: '1px solid #378ADD', borderRadius: 14, padding: 20 }}>
+    <div style={{ background: 'rgba(77,184,146,0.15)', border: '1px solid #4DB892', borderRadius: 14, padding: 20 }}>
       <div style={{ color: '#FAC775', fontSize: 11, fontWeight: 700, letterSpacing: '0.1em', marginBottom: 16 }}>AVEC DOCTOBIKE</div>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
         {[
@@ -49,27 +49,27 @@ const faqs = [
 ]
 
 const PACKS = [
-  { key: 'decouverte', name: 'Pack Découverte', price: '30€', duration: '40 min', desc: 'Diagnostic rapide, panne simple.', color: '#E6F1FB', colorText: '#185FA5' },
-  { key: 'depannage',  name: 'Pack Dépannage',  price: '45€', duration: '45 min – 1h', desc: 'Réparation complète guidée.', color: '#042C53', colorText: 'white' },
-  { key: 'expert',    name: 'Pack Expert',     price: '90€', duration: "Jusqu'à 2h", desc: 'Révision approfondie, réglages complexes.', color: '#185FA5', colorText: 'white' },
+  { key: 'decouverte', name: 'Pack Découverte', price: '30€', duration: '40 min', desc: 'Diagnostic rapide, panne simple.', bg: '#E8F5EE', text: '#1B4D3E', sub: '#2E8B6A' },
+  { key: 'depannage',  name: 'Pack Dépannage',  price: '45€', duration: '45 min – 1h', desc: 'Réparation complète guidée.', bg: '#1B4D3E', text: 'white', sub: 'rgba(255,255,255,0.65)' },
+  { key: 'expert',    name: 'Pack Expert',     price: '90€', duration: "Jusqu'à 2h", desc: 'Révision approfondie, réglages complexes.', bg: '#2E8B6A', text: 'white', sub: 'rgba(255,255,255,0.65)' },
 ]
 
 export default function CoachingPage() {
   return (
-    <div style={{ minHeight: '100vh', background: '#F8FAFF', fontFamily: font }}>
+    <div style={{ minHeight: '100vh', background: '#FAFCFA', fontFamily: font }}>
 
       {/* Hero */}
-      <section style={{ background: 'linear-gradient(135deg, #042C53 0%, #185FA5 100%)', padding: '64px 24px' }}>
+      <section style={{ background: 'linear-gradient(135deg, #1B4D3E 0%, #2E8B6A 100%)', padding: '64px 24px' }}>
         <div style={{ maxWidth: 1000, margin: '0 auto', display: 'flex', alignItems: 'center', gap: 48, flexWrap: 'wrap', justifyContent: 'center' }}>
           <div style={{ flex: 1, minWidth: 280, color: 'white' }}>
-            <p style={{ fontSize: 12, letterSpacing: '0.15em', textTransform: 'uppercase', color: '#B5D4F4', marginBottom: 16, fontWeight: 600 }}>Coaching vélo en visio</p>
+            <p style={{ fontSize: 12, letterSpacing: '0.15em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.65)', marginBottom: 16, fontWeight: 600 }}>Assistance & dépannage vélo</p>
             <h1 style={{ fontFamily: font, fontSize: 36, fontWeight: 800, lineHeight: 1.25, margin: '0 0 16px' }}>
               Réparez votre vélo<br />depuis chez vous
             </h1>
-            <p style={{ color: '#B5D4F4', fontSize: 16, lineHeight: 1.7, margin: '0 0 32px', maxWidth: 420 }}>
+            <p style={{ color: 'rgba(255,255,255,0.75)', fontSize: 16, lineHeight: 1.7, margin: '0 0 32px', maxWidth: 420 }}>
               Damien, mécanicien certifié RNCP, vous guide en temps réel par vidéo pour diagnostiquer et réparer votre vélo. Pas besoin de se déplacer.
             </p>
-            <Link href="/booking" style={{ display: 'inline-block', background: '#FAC775', color: '#042C53', padding: '14px 32px', borderRadius: 12, textDecoration: 'none', fontSize: 16, fontWeight: 800 }}>
+            <Link href="/booking" style={{ display: 'inline-block', background: '#FAC775', color: '#1B4D3E', padding: '14px 32px', borderRadius: 12, textDecoration: 'none', fontSize: 16, fontWeight: 800 }}>
               Prendre rendez-vous →
             </Link>
           </div>
@@ -79,19 +79,19 @@ export default function CoachingPage() {
 
       {/* Comment ça marche */}
       <section style={{ padding: '64px 24px', maxWidth: 1000, margin: '0 auto' }}>
-        <h2 style={{ textAlign: 'center', color: '#042C53', fontWeight: 800, fontSize: 26, marginBottom: 48 }}>Comment ça marche ?</h2>
+        <h2 style={{ textAlign: 'center', color: '#1B4D3E', fontWeight: 800, fontSize: 26, marginBottom: 48 }}>Comment ça marche ?</h2>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: 24 }}>
           {[
             { num: '1', icon: '📅', title: 'Réservez un créneau', desc: 'Choisissez un horaire disponible et renseignez votre problème. Votre carte est sécurisée mais pas encore débitée.' },
             { num: '2', icon: '🎥', title: 'Rejoignez la visio', desc: "À l'heure du rendez-vous, connectez-vous via Google Meet depuis votre téléphone ou ordinateur." },
             { num: '3', icon: '🔧', title: 'Réparez votre vélo', desc: "Damien vous guide pas à pas. Votre carte n'est débitée qu'une fois la réparation effectuée." },
           ].map(step => (
-            <div key={step.num} style={{ background: 'white', borderRadius: 16, padding: 28, border: '1px solid #E6F1FB', textAlign: 'center' }}>
-              <div style={{ width: 52, height: 52, borderRadius: '50%', background: '#E6F1FB', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 16px', fontSize: 24 }}>
+            <div key={step.num} style={{ background: 'white', borderRadius: 16, padding: 28, border: '1px solid #E8F5EE', textAlign: 'center' }}>
+              <div style={{ width: 52, height: 52, borderRadius: '50%', background: '#E8F5EE', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 16px', fontSize: 24 }}>
                 {step.icon}
               </div>
-              <div style={{ fontSize: 11, fontWeight: 700, color: '#378ADD', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: 8 }}>Étape {step.num}</div>
-              <h3 style={{ color: '#042C53', fontWeight: 700, fontSize: 16, marginBottom: 10 }}>{step.title}</h3>
+              <div style={{ fontSize: 11, fontWeight: 700, color: '#2E8B6A', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: 8 }}>Étape {step.num}</div>
+              <h3 style={{ color: '#1B4D3E', fontWeight: 700, fontSize: 16, marginBottom: 10 }}>{step.title}</h3>
               <p style={{ color: '#666', fontSize: 14, lineHeight: 1.6, margin: 0 }}>{step.desc}</p>
             </div>
           ))}
@@ -99,25 +99,25 @@ export default function CoachingPage() {
       </section>
 
       {/* Tarifs */}
-      <section style={{ background: '#E6F1FB', padding: '64px 24px' }}>
+      <section style={{ background: '#E8F5EE', padding: '64px 24px' }}>
         <div style={{ maxWidth: 900, margin: '0 auto' }}>
-          <h2 style={{ textAlign: 'center', color: '#042C53', fontWeight: 800, fontSize: 26, marginBottom: 12 }}>Nos formules</h2>
-          <p style={{ textAlign: 'center', color: '#185FA5', fontSize: 15, marginBottom: 40 }}>Choisissez le pack adapté à votre besoin</p>
+          <h2 style={{ textAlign: 'center', color: '#1B4D3E', fontWeight: 800, fontSize: 26, marginBottom: 12 }}>Nos formules</h2>
+          <p style={{ textAlign: 'center', color: '#2E8B6A', fontSize: 15, marginBottom: 40 }}>Choisissez le pack adapté à votre besoin</p>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: 20 }}>
             {PACKS.map(pack => (
-              <div key={pack.key} style={{ background: pack.color, borderRadius: 20, padding: 28, border: pack.key === 'depannage' ? '2px solid #FAC775' : '1px solid rgba(0,0,0,0.06)' }}>
+              <div key={pack.key} style={{ background: pack.bg, borderRadius: 20, padding: 28, border: pack.key === 'depannage' ? '2px solid #FAC775' : '1px solid rgba(0,0,0,0.06)' }}>
                 {pack.key === 'depannage' && (
                   <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#FAC775', marginBottom: 10 }}>⭐ Le plus populaire</div>
                 )}
-                <h3 style={{ color: pack.colorText, fontWeight: 800, fontSize: 18, margin: '0 0 6px', fontFamily: font }}>{pack.name}</h3>
-                <p style={{ color: pack.key === 'decouverte' ? '#185FA5' : '#B5D4F4', fontSize: 13, margin: '0 0 16px' }}>{pack.duration}</p>
-                <div style={{ fontSize: 32, fontWeight: 800, color: pack.colorText, fontFamily: font, marginBottom: 12 }}>{pack.price}</div>
-                <p style={{ color: pack.key === 'decouverte' ? '#555' : '#B5D4F4', fontSize: 14, lineHeight: 1.5, margin: '0 0 20px' }}>{pack.desc}</p>
+                <h3 style={{ color: pack.text, fontWeight: 800, fontSize: 18, margin: '0 0 6px', fontFamily: font }}>{pack.name}</h3>
+                <p style={{ color: pack.sub, fontSize: 13, margin: '0 0 16px' }}>{pack.duration}</p>
+                <div style={{ fontSize: 32, fontWeight: 800, color: pack.text, fontFamily: font, marginBottom: 12 }}>{pack.price}</div>
+                <p style={{ color: pack.sub, fontSize: 14, lineHeight: 1.5, margin: '0 0 20px' }}>{pack.desc}</p>
                 <Link href={`/booking?pack=${pack.key}`} style={{
                   display: 'block', textAlign: 'center',
                   background: pack.key === 'depannage' ? '#FAC775' : 'rgba(255,255,255,0.15)',
-                  color: pack.key === 'depannage' ? '#042C53' : pack.colorText,
-                  border: pack.key === 'decouverte' ? '1.5px solid #185FA5' : 'none',
+                  color: pack.key === 'depannage' ? '#1B4D3E' : pack.text,
+                  border: pack.key === 'decouverte' ? '1.5px solid #2E8B6A' : 'none',
                   padding: '12px 20px', borderRadius: 12, textDecoration: 'none', fontSize: 14, fontWeight: 700,
                 }}>
                   Choisir ce pack →
@@ -128,22 +128,22 @@ export default function CoachingPage() {
         </div>
       </section>
 
-      {/* CTA réservation */}
+      {/* CTA */}
       <section style={{ padding: '48px 24px', textAlign: 'center' }}>
-        <h2 style={{ color: '#042C53', fontWeight: 800, fontSize: 24, marginBottom: 12 }}>Votre vélo vous attend 🚲</h2>
-        <p style={{ color: '#185FA5', fontSize: 16, marginBottom: 28 }}>Réservez votre séance en moins de 2 minutes.</p>
-        <Link href="/booking" style={{ display: 'inline-block', background: '#185FA5', color: 'white', padding: '14px 36px', borderRadius: 12, textDecoration: 'none', fontSize: 16, fontWeight: 800 }}>
+        <h2 style={{ color: '#1B4D3E', fontWeight: 800, fontSize: 24, marginBottom: 12 }}>Votre vélo vous attend 🚲</h2>
+        <p style={{ color: '#2E8B6A', fontSize: 16, marginBottom: 28 }}>Réservez votre séance en moins de 2 minutes.</p>
+        <Link href="/booking" style={{ display: 'inline-block', background: '#1B4D3E', color: 'white', padding: '14px 36px', borderRadius: 12, textDecoration: 'none', fontSize: 16, fontWeight: 800 }}>
           Réserver ma séance →
         </Link>
       </section>
 
       {/* FAQ */}
       <section style={{ padding: '0 24px 64px', maxWidth: 720, margin: '0 auto' }}>
-        <h2 style={{ textAlign: 'center', color: '#042C53', fontWeight: 800, fontSize: 26, marginBottom: 40 }}>Questions fréquentes</h2>
+        <h2 style={{ textAlign: 'center', color: '#1B4D3E', fontWeight: 800, fontSize: 26, marginBottom: 40 }}>Questions fréquentes</h2>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
           {faqs.map((faq, i) => (
-            <div key={i} style={{ background: 'white', borderRadius: 14, border: '1px solid #E6F1FB', padding: '20px 24px' }}>
-              <h3 style={{ color: '#042C53', fontWeight: 700, fontSize: 15, margin: '0 0 8px' }}>{faq.q}</h3>
+            <div key={i} style={{ background: 'white', borderRadius: 14, border: '1px solid #E8F5EE', padding: '20px 24px' }}>
+              <h3 style={{ color: '#1B4D3E', fontWeight: 700, fontSize: 15, margin: '0 0 8px' }}>{faq.q}</h3>
               <p style={{ color: '#555', fontSize: 14, lineHeight: 1.7, margin: 0 }}>{faq.a}</p>
             </div>
           ))}
@@ -151,13 +151,13 @@ export default function CoachingPage() {
       </section>
 
       {/* Footer */}
-      <footer style={{ background: '#042C53', padding: '32px 24px', textAlign: 'center' }}>
-        <p style={{ color: '#B5D4F4', fontSize: 13, margin: '0 0 12px' }}>© 2024 Doctobike — Coaching vélo en visio</p>
+      <footer style={{ background: '#1B4D3E', padding: '32px 24px', textAlign: 'center' }}>
+        <p style={{ color: 'rgba(255,255,255,0.6)', fontSize: 13, margin: '0 0 12px' }}>© 2024 Doctobike — Assistance & dépannage vélo</p>
         <div style={{ display: 'flex', justifyContent: 'center', gap: 24, flexWrap: 'wrap' }}>
-          <Link href="/mentions-legales" style={{ color: '#378ADD', fontSize: 13, textDecoration: 'none' }}>Mentions légales</Link>
-          <Link href="/cgv" style={{ color: '#378ADD', fontSize: 13, textDecoration: 'none' }}>CGV</Link>
-          <Link href="/confidentialite" style={{ color: '#378ADD', fontSize: 13, textDecoration: 'none' }}>Confidentialité</Link>
-          <Link href="/booking" style={{ color: '#378ADD', fontSize: 13, textDecoration: 'none' }}>Prendre rendez-vous</Link>
+          <Link href="/mentions-legales" style={{ color: '#4DB892', fontSize: 13, textDecoration: 'none' }}>Mentions légales</Link>
+          <Link href="/cgv" style={{ color: '#4DB892', fontSize: 13, textDecoration: 'none' }}>CGV</Link>
+          <Link href="/confidentialite" style={{ color: '#4DB892', fontSize: 13, textDecoration: 'none' }}>Confidentialité</Link>
+          <Link href="/booking" style={{ color: '#4DB892', fontSize: 13, textDecoration: 'none' }}>Prendre rendez-vous</Link>
         </div>
       </footer>
 
