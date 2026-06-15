@@ -1,105 +1,136 @@
 import Link from 'next/link'
 
-const font = "'Nunito', sans-serif"
+const font = "'Plus Jakarta Sans', sans-serif"
 
 export default function HomePage() {
   return (
-    <div style={{ minHeight: '100vh', background: '#F8FAFF', fontFamily: font }}>
+    <div style={{ minHeight: '100vh', background: '#FAFCFA', fontFamily: font }}>
 
       {/* Hero */}
-      <section style={{ background: 'linear-gradient(135deg, #042C53 0%, #185FA5 100%)', padding: '72px 24px' }}>
-        <div style={{ maxWidth: 700, margin: '0 auto', textAlign: 'center', color: 'white' }}>
-          <p style={{ fontSize: 12, letterSpacing: '0.15em', textTransform: 'uppercase', color: '#B5D4F4', marginBottom: 16, fontWeight: 600 }}>
-            Mécanicien vélo certifié RNCP
-          </p>
-          <h1 style={{ fontFamily: font, fontSize: 40, fontWeight: 800, lineHeight: 1.2, margin: '0 0 20px' }}>
-            La mécanique vélo,<br />accessible à tous
+      <section style={{ background: 'linear-gradient(135deg, #1B4D3E 0%, #2E8B6A 100%)', padding: '80px 24px' }}>
+        <div style={{ maxWidth: 720, margin: '0 auto', textAlign: 'center', color: 'white' }}>
+          <h1 style={{ fontFamily: font, fontSize: 38, fontWeight: 800, lineHeight: 1.25, margin: '0 0 20px' }}>
+            Doctobike, l'expertise vélo<br />pour les entreprises<br />et les particuliers
           </h1>
-          <p style={{ color: '#B5D4F4', fontSize: 17, lineHeight: 1.7, margin: '0 auto 48px', maxWidth: 500 }}>
-            Damien vous accompagne pour réparer votre vélo — que vous soyez chez vous ou en entreprise.
+          <p style={{ color: 'rgba(255,255,255,0.75)', fontSize: 17, lineHeight: 1.7, margin: '0 auto 12px', maxWidth: 520 }}>
+            Damien Hardy, mécanicien vélo certifié RNCP, met son expertise au service de votre mobilité.
           </p>
+        </div>
+      </section>
 
-          {/* Les deux offres */}
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: 20, maxWidth: 640, margin: '0 auto' }}>
+      {/* Deux offres */}
+      <section style={{ padding: '64px 24px', maxWidth: 960, margin: '0 auto' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))', gap: 28 }}>
 
-            {/* Coaching vidéo */}
-            <Link href="/coaching" style={{ textDecoration: 'none' }}>
-              <div style={{
-                background: 'rgba(255,255,255,0.08)',
-                border: '1.5px solid rgba(255,255,255,0.2)',
-                borderRadius: 20,
-                padding: 28,
-                textAlign: 'left',
-                cursor: 'pointer',
-                transition: 'background 0.2s',
-              }}>
-                <div style={{ fontSize: 36, marginBottom: 14 }}>🎥</div>
-                <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#FAC775', marginBottom: 8 }}>
-                  Particuliers
+          {/* Bloc Entreprise */}
+          <div style={{
+            background: 'white',
+            borderRadius: 20,
+            border: '1px solid #E8F5EE',
+            padding: 36,
+            display: 'flex',
+            flexDirection: 'column',
+          }}>
+            <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#2E8B6A', marginBottom: 16 }}>
+              Entreprises
+            </div>
+            <h2 style={{ fontFamily: font, fontWeight: 800, fontSize: 22, color: '#1B4D3E', margin: '0 0 8px' }}>
+              Vous êtes une entreprise ?
+            </h2>
+            <p style={{ color: '#1B4D3E', fontWeight: 600, fontSize: 15, margin: '0 0 20px' }}>
+              Maintenance vélo & mobilité des collaborateurs
+            </p>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 12, marginBottom: 28, flex: 1 }}>
+              {[
+                'Atelier vélo dans vos locaux',
+                'Entretien et réparation du parc vélo des salariés',
+                'Sensibilisation à la mobilité douce',
+                'Gain de temps et amélioration du confort des collaborateurs',
+              ].map((item, i) => (
+                <div key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: 10, color: '#444', fontSize: 14, lineHeight: 1.6 }}>
+                  <span style={{ color: '#2E8B6A', fontWeight: 700, fontSize: 16, flexShrink: 0 }}>✓</span>
+                  {item}
                 </div>
-                <h2 style={{ color: 'white', fontWeight: 800, fontSize: 20, margin: '0 0 10px', fontFamily: font }}>
-                  Coaching Vidéo
-                </h2>
-                <p style={{ color: '#B5D4F4', fontSize: 14, lineHeight: 1.6, margin: '0 0 20px' }}>
-                  Réparez votre vélo depuis chez vous. Damien vous guide en temps réel par visio.
-                </p>
-                <span style={{ display: 'inline-block', background: '#FAC775', color: '#042C53', padding: '10px 20px', borderRadius: 10, fontSize: 14, fontWeight: 800 }}>
-                  Prendre rendez-vous →
-                </span>
-              </div>
+              ))}
+            </div>
+            <Link href="/entreprise" style={{
+              display: 'block', textAlign: 'center',
+              background: '#1B4D3E', color: 'white',
+              padding: '14px 24px', borderRadius: 12,
+              textDecoration: 'none', fontSize: 15, fontWeight: 700,
+            }}>
+              Accéder à l'espace Entreprise →
             </Link>
-
-            {/* Intervention entreprise */}
-            <Link href="/entreprise" style={{ textDecoration: 'none' }}>
-              <div style={{
-                background: 'rgba(255,255,255,0.08)',
-                border: '1.5px solid rgba(255,255,255,0.2)',
-                borderRadius: 20,
-                padding: 28,
-                textAlign: 'left',
-                cursor: 'pointer',
-              }}>
-                <div style={{ fontSize: 36, marginBottom: 14 }}>🏢</div>
-                <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#FAC775', marginBottom: 8 }}>
-                  Entreprises
-                </div>
-                <h2 style={{ color: 'white', fontWeight: 800, fontSize: 20, margin: '0 0 10px', fontFamily: font }}>
-                  Intervention Entreprise
-                </h2>
-                <p style={{ color: '#B5D4F4', fontSize: 14, lineHeight: 1.6, margin: '0 0 20px' }}>
-                  Damien se déplace dans vos locaux pour prendre en charge les vélos de vos collaborateurs.
-                </p>
-                <span style={{ display: 'inline-block', background: 'rgba(255,255,255,0.15)', color: 'white', padding: '10px 20px', borderRadius: 10, fontSize: 14, fontWeight: 800, border: '1px solid rgba(255,255,255,0.3)' }}>
-                  Demander un devis →
-                </span>
-              </div>
-            </Link>
-
           </div>
+
+          {/* Bloc Particulier */}
+          <div style={{
+            background: 'white',
+            borderRadius: 20,
+            border: '1px solid #E8F5EE',
+            padding: 36,
+            display: 'flex',
+            flexDirection: 'column',
+          }}>
+            <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#2E8B6A', marginBottom: 16 }}>
+              Particuliers
+            </div>
+            <h2 style={{ fontFamily: font, fontWeight: 800, fontSize: 22, color: '#1B4D3E', margin: '0 0 8px' }}>
+              Vous êtes un particulier ?
+            </h2>
+            <p style={{ color: '#1B4D3E', fontWeight: 600, fontSize: 15, margin: '0 0 8px' }}>
+              Assistance, formation & dépannage vélo
+            </p>
+            <p style={{ color: '#555', fontSize: 14, lineHeight: 1.6, margin: '0 0 20px' }}>
+              Un expert vélo vous accompagne où que vous soyez pour entretenir, comprendre ou réparer votre vélo.
+            </p>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 12, marginBottom: 28, flex: 1 }}>
+              {[
+                'Dépannage et diagnostic en visio',
+                'Formation à la mécanique vélo',
+                'Conseils personnalisés',
+                "Aide à l'auto-réparation",
+              ].map((item, i) => (
+                <div key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: 10, color: '#444', fontSize: 14, lineHeight: 1.6 }}>
+                  <span style={{ color: '#2E8B6A', fontWeight: 700, fontSize: 16, flexShrink: 0 }}>✓</span>
+                  {item}
+                </div>
+              ))}
+            </div>
+            <Link href="/coaching" style={{
+              display: 'block', textAlign: 'center',
+              background: '#2E8B6A', color: 'white',
+              padding: '14px 24px', borderRadius: 12,
+              textDecoration: 'none', fontSize: 15, fontWeight: 700,
+            }}>
+              Accéder à l'espace Particulier →
+            </Link>
+          </div>
+
         </div>
       </section>
 
       {/* Bloc Damien */}
-      <section style={{ padding: '64px 24px', maxWidth: 720, margin: '0 auto', textAlign: 'center' }}>
-        <div style={{ width: 64, height: 64, borderRadius: '50%', background: '#E6F1FB', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 20px', fontSize: 32 }}>🔧</div>
-        <h2 style={{ color: '#042C53', fontWeight: 800, fontSize: 24, marginBottom: 16 }}>Damien Hardy, mécanicien certifié RNCP</h2>
-        <p style={{ color: '#555', fontSize: 16, lineHeight: 1.8, maxWidth: 560, margin: '0 auto 32px' }}>
-          Fort de plusieurs années d'expérience en réparation vélo, Damien a développé Doctobike pour rendre la mécanique accessible à tous — particuliers comme professionnels.
+      <section style={{ padding: '48px 24px 72px', maxWidth: 640, margin: '0 auto', textAlign: 'center' }}>
+        <div style={{ width: 56, height: 56, borderRadius: '50%', background: '#E8F5EE', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 20px', fontSize: 28 }}>🔧</div>
+        <h2 style={{ color: '#1B4D3E', fontWeight: 800, fontSize: 22, marginBottom: 14 }}>Damien Hardy, mécanicien certifié RNCP</h2>
+        <p style={{ color: '#555', fontSize: 15, lineHeight: 1.8, maxWidth: 500, margin: '0 auto 24px' }}>
+          Fort de plusieurs années d'expérience, Damien a créé Doctobike pour rendre la mécanique vélo accessible — en entreprise comme à domicile.
         </p>
-        <Link href="/about" style={{ color: '#185FA5', fontWeight: 700, fontSize: 15, textDecoration: 'none' }}>
-          En savoir plus sur Damien →
+        <Link href="/about" style={{ color: '#2E8B6A', fontWeight: 700, fontSize: 15, textDecoration: 'none' }}>
+          En savoir plus →
         </Link>
       </section>
 
       {/* Footer */}
-      <footer style={{ background: '#042C53', padding: '32px 24px', textAlign: 'center' }}>
-        <p style={{ color: '#B5D4F4', fontSize: 13, margin: '0 0 12px' }}>© 2024 Doctobike — Mécanicien vélo certifié</p>
+      <footer style={{ background: '#1B4D3E', padding: '32px 24px', textAlign: 'center' }}>
+        <p style={{ color: 'rgba(255,255,255,0.6)', fontSize: 13, margin: '0 0 12px' }}>© 2024 Doctobike — Mécanicien vélo certifié</p>
         <div style={{ display: 'flex', justifyContent: 'center', gap: 24, flexWrap: 'wrap' }}>
-          <Link href="/mentions-legales" style={{ color: '#378ADD', fontSize: 13, textDecoration: 'none' }}>Mentions légales</Link>
-          <Link href="/cgv" style={{ color: '#378ADD', fontSize: 13, textDecoration: 'none' }}>CGV</Link>
-          <Link href="/confidentialite" style={{ color: '#378ADD', fontSize: 13, textDecoration: 'none' }}>Confidentialité</Link>
-          <Link href="/coaching" style={{ color: '#378ADD', fontSize: 13, textDecoration: 'none' }}>Coaching Vidéo</Link>
-          <Link href="/entreprise" style={{ color: '#378ADD', fontSize: 13, textDecoration: 'none' }}>Intervention Entreprise</Link>
+          <Link href="/mentions-legales" style={{ color: '#4DB892', fontSize: 13, textDecoration: 'none' }}>Mentions légales</Link>
+          <Link href="/cgv" style={{ color: '#4DB892', fontSize: 13, textDecoration: 'none' }}>CGV</Link>
+          <Link href="/confidentialite" style={{ color: '#4DB892', fontSize: 13, textDecoration: 'none' }}>Confidentialité</Link>
+          <Link href="/entreprise" style={{ color: '#4DB892', fontSize: 13, textDecoration: 'none' }}>Atelier en entreprise</Link>
+          <Link href="/coaching" style={{ color: '#4DB892', fontSize: 13, textDecoration: 'none' }}>Assistance & dépannage</Link>
         </div>
       </footer>
 
