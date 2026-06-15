@@ -2,11 +2,49 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 
 const font = "'Nunito', sans-serif"
 
 export default function NavHeader() {
   const [menuOpen, setMenuOpen] = useState(false)
+  const pathname = usePathname()
+
+  const navLink = (href: string, label: string) => {
+    const active = pathname === href || pathname.startsWith(href + '/')
+    return (
+      <Link href={href} style={{
+        fontSize: 14,
+        color: active ? '#185FA5' : '#444',
+        textDecoration: 'none',
+        padding: '8px 12px',
+        borderRadius: 8,
+        fontFamily: font,
+        fontWeight: active ? 700 : 600,
+        borderBottom: active ? '2px solid #185FA5' : '2px solid transparent',
+      }}>
+        {label}
+      </Link>
+    )
+  }
+
+  const mobileLink = (href: string, label: string) => {
+    const active = pathname === href || pathname.startsWith(href + '/')
+    return (
+      <Link href={href} onClick={() => setMenuOpen(false)} style={{
+        fontSize: 16,
+        color: active ? '#185FA5' : '#042C53',
+        textDecoration: 'none',
+        padding: '12px 16px',
+        borderRadius: 10,
+        fontFamily: font,
+        fontWeight: 700,
+        background: active ? '#E6F1FB' : 'transparent',
+      }}>
+        {label}
+      </Link>
+    )
+  }
 
   return (
     <>
@@ -43,18 +81,10 @@ export default function NavHeader() {
 
         {/* Desktop nav */}
         <nav className="desktop-nav" style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
-          <Link href="/" style={{ fontSize: 14, color: '#444', textDecoration: 'none', padding: '8px 12px', borderRadius: 8, fontFamily: font, fontWeight: 600 }}>
-            Accueil
-          </Link>
-          <Link href="/about" style={{ fontSize: 14, color: '#444', textDecoration: 'none', padding: '8px 12px', borderRadius: 8, fontFamily: font, fontWeight: 600 }}>
-            À propos
-          </Link>
-          <Link href="/tarifs" style={{ fontSize: 14, color: '#444', textDecoration: 'none', padding: '8px 12px', borderRadius: 8, fontFamily: font, fontWeight: 600 }}>
-            Tarifs
-          </Link>
-          <Link href="/booking" style={{ background: '#185FA5', color: 'white', padding: '10px 18px', borderRadius: 10, textDecoration: 'none', fontSize: 14, fontWeight: 700, fontFamily: font, whiteSpace: 'nowrap', marginLeft: 8 }}>
-            Réserver
-          </Link>
+          {navLink('/', 'Accueil')}
+          {navLink('/coaching', 'Coaching Vidéo')}
+          {navLink('/entreprise', 'Intervention Entreprise')}
+          {navLink('/about', 'À propos')}
         </nav>
 
         {/* Hamburger mobile */}
@@ -79,23 +109,15 @@ export default function NavHeader() {
           display: 'flex', flexDirection: 'column', gap: 4,
           boxShadow: '0 4px 20px rgba(0,0,0,0.1)',
         }}>
-          <Link href="/" onClick={() => setMenuOpen(false)} style={{ fontSize: 16, color: '#042C53', textDecoration: 'none', padding: '12px 16px', borderRadius: 10, fontFamily: font, fontWeight: 700 }}>
-            Accueil
-          </Link>
-          <Link href="/about" onClick={() => setMenuOpen(false)} style={{ fontSize: 16, color: '#042C53', textDecoration: 'none', padding: '12px 16px', borderRadius: 10, fontFamily: font, fontWeight: 700 }}>
-            À propos
-          </Link>
-          <Link href="/tarifs" onClick={() => setMenuOpen(false)} style={{ fontSize: 16, color: '#042C53', textDecoration: 'none', padding: '12px 16px', borderRadius: 10, fontFamily: font, fontWeight: 700 }}>
-            Tarifs
-          </Link>
-          <Link href="/booking" onClick={() => setMenuOpen(false)} style={{ fontSize: 16, background: '#185FA5', color: 'white', textDecoration: 'none', padding: '12px 16px', borderRadius: 10, fontFamily: font, fontWeight: 700, textAlign: 'center', marginTop: 4 }}>
-            Réserver
-          </Link>
+          {mobileLink('/', 'Accueil')}
+          {mobileLink('/coaching', '🎥 Coaching Vidéo')}
+          {mobileLink('/entreprise', '🏢 Intervention Entreprise')}
+          {mobileLink('/about', 'À propos')}
         </div>
       )}
 
       <style>{`
-        @media (max-width: 600px) {
+        @media (max-width: 700px) {
           .desktop-nav { display: none !important; }
           .hamburger { display: flex !important; }
         }
